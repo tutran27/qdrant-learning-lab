@@ -1,0 +1,9 @@
+qdrant-client 
+sentence-transformers 
+torch 
+transformers
+groq
+python-dotenv
+langchain-community
+pypdf
+qdrant-client[fastembed]
