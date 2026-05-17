@@ -24,7 +24,7 @@ def sparse_embedding(chunks, sparse_embedding= settings.sparse_embedding_model):
     return chunks_sparse_embedded
 
 if __name__=="__main__":
-    chunks = ["Hello World!!!"]
+    chunks = "Hello World!!!"
     dense_vector=embedding(chunks)
     print(f"Dense vector: {dense_vector}")
 
