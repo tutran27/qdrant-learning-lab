@@ -2,11 +2,17 @@ import json
 from qdrant_client import QdrantClient, models
 
 from common.config import settings
+from labs.lab_04_hybrid_dense_sparse.constants import (
+    COLLECTION_NAME,
+    DEFAULT_LIMIT,
+    DENSE_VECTOR_NAME,
+    SPARSE_VECTOR_NAME,
+)
 
-def scroll_collection(client, collection_name, flt=None):
+def scroll_collection(client, collection_name, flt=None, limit=DEFAULT_LIMIT):
     result, nextpage=client.scroll(
         collection_name=collection_name,
-        limit=4,
+        limit=limit,
         scroll_filter=flt,
         with_payload=True,
         with_vectors=True
@@ -15,14 +21,13 @@ def scroll_collection(client, collection_name, flt=None):
     for res in result:
         print(f"ID: {res.id}")
         print(f"PAYLOAD: {json.dumps(res.payload, indent=2, ensure_ascii=False)}")
-        # print(f"Vector: {res.vector['dense']}")
-        # print(f"Sparse: {res.vector['sparse']}")
+        # print(f"Vector: {res.vector[DENSE_VECTOR_NAME]}")
+        # print(f"Sparse: {res.vector[SPARSE_VECTOR_NAME]}")
         print("----------")
 
 
 if __name__ == "__main__":
     client=QdrantClient(path=settings.qdrant_path)
-    collection_name=settings.dense_collection_name + "_lab04"
     flt=models.Filter(
         must=[
             models.FieldCondition(
@@ -37,5 +42,5 @@ if __name__ == "__main__":
             )
         ]
     )
-    scroll_collection(client, collection_name, flt)
+    scroll_collection(client, COLLECTION_NAME, flt)
     client.close()

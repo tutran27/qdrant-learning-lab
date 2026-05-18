@@ -1,5 +1,4 @@
 ﻿import os
-import json
 from uuid import uuid4
 from qdrant_client import QdrantClient, models
 
@@ -7,7 +6,11 @@ from common.config import settings
 from common.embedding import embed_dense, load_dense_model, embed_sparse, load_sparse_model
 from common.document_loader import load_document
 from common.chunking import text_split
-
+from labs.lab_04_hybrid_dense_sparse.constants import (
+    COLLECTION_NAME,
+    DENSE_VECTOR_NAME,
+    SPARSE_VECTOR_NAME,
+)
 from labs.lab_04_hybrid_dense_sparse.create_hybrid_collection import ensure_collection_exists
 
 def ingest(client: QdrantClient,
@@ -15,8 +18,6 @@ def ingest(client: QdrantClient,
            sparse_model,
            path: str,
            lang: str="vi"):
-    collection_name=settings.dense_collection_name + "_lab04"
-
     pages = load_document(path)
     chunks = text_split(pages)
 
@@ -33,8 +34,8 @@ def ingest(client: QdrantClient,
         point = models.PointStruct(
             id=str(uuid4()),
             vector={
-                "dense": embedd.tolist(),
-                "sparse": sparse_chunk
+                DENSE_VECTOR_NAME: embedd.tolist(),
+                SPARSE_VECTOR_NAME: sparse_chunk
             },
             payload={
                 "chunk_id": i,
@@ -52,7 +53,7 @@ def ingest(client: QdrantClient,
         points.append(point)
 
     client.upsert(
-        collection_name=collection_name,
+        collection_name=COLLECTION_NAME,
         points=points,
         wait=True
     )
@@ -61,13 +62,12 @@ def ingest(client: QdrantClient,
 
 if __name__ == "__main__":
     BASE_DIR="data/raw/sample_docs"
-    collection_name=settings.dense_collection_name + "_lab06"
     
     client = QdrantClient(path=settings.qdrant_path)
     ensure_collection_exists(client)
 
     client.create_payload_index(
-        collection_name=collection_name,
+        collection_name=COLLECTION_NAME,
         field_name="file_name",
         field_schema=models.TextIndexParams(
             type=models.TextIndexType.TEXT,
@@ -75,7 +75,7 @@ if __name__ == "__main__":
             lowercase=True
         ),
         wait=True
-)
+    )
 
     dense_model=load_dense_model()
     sparse_model=load_sparse_model()

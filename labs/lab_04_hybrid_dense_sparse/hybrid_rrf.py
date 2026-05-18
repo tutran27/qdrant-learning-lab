@@ -4,41 +4,45 @@ from qdrant_client import QdrantClient, models
 
 from common.config import settings
 from common.embedding import embed_dense, load_dense_model, embed_sparse, load_sparse_model
-from common.document_loader import load_document
-from common.chunking import text_split
-from labs.lab_04_hybrid_dense_sparse.create_hybrid_collection import ensure_collection_exists
+from labs.lab_04_hybrid_dense_sparse.constants import (
+    COLLECTION_NAME,
+    DEFAULT_LIMIT,
+    DEFAULT_PREFETCH_LIMIT,
+    DENSE_VECTOR_NAME,
+    SPARSE_VECTOR_NAME,
+)
 
 def hybrid_search(client: QdrantClient, 
                 dense_model, 
                 sparse_model, 
                 query, 
                 flt = None,
-                k=40):
-    collection_name=settings.dense_collection_name + "_lab04"
+                k=DEFAULT_PREFETCH_LIMIT,
+                top_k=DEFAULT_LIMIT,
+                ):
     dense_vectors=embed_dense(dense_model, [query])
     sparse_vectors=embed_sparse(sparse_model, [query])
 
     result=client.query_points(
-        collection_name=collection_name,
+        collection_name=COLLECTION_NAME,
         prefetch=[
             models.Prefetch(
                 query=dense_vectors[0].tolist(),
                 limit=k,
                 filter=flt,
-                using="dense"
+                using=DENSE_VECTOR_NAME
             ),
             models.Prefetch(
                 query=sparse_vectors[0],
                 limit=k,
                 filter=flt,
-                using="sparse"
+                using=SPARSE_VECTOR_NAME
             ),
         ],
         query=models.FusionQuery(
             fusion=models.Fusion.RRF
         ),
-        limit=5,
-        query_filter=flt,
+        limit=top_k,
         with_payload=True,
         with_vectors=False
     )
@@ -49,7 +53,7 @@ if __name__ == "__main__":
     client=QdrantClient(path=settings.qdrant_path)
     dense_model=load_dense_model()
     sparse_model=load_sparse_model()
-    query="notebooklm cÃ³ thá»ƒ lÃ m gÃ¬?"
+    query="notebooklm có thể làm gì?"
     flt=models.Filter(
         must=[
             models.FieldCondition(

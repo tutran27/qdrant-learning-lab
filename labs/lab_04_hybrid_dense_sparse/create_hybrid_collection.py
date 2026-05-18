@@ -1,9 +1,14 @@
 from qdrant_client import QdrantClient, models
 
 from common.config import settings
+from labs.lab_04_hybrid_dense_sparse.constants import (
+    COLLECTION_NAME,
+    DENSE_VECTOR_NAME,
+    SPARSE_VECTOR_NAME,
+)
 
 def ensure_collection_exists(client):
-    collection_name=settings.dense_collection_name + "_lab04"
+    collection_name=COLLECTION_NAME
     if client.collection_exists(collection_name=collection_name):
         client.delete_collection(collection_name=collection_name)
         print(f"Deleted collection {collection_name}")
@@ -11,13 +16,13 @@ def ensure_collection_exists(client):
     client.create_collection(
         collection_name=collection_name,
         vectors_config={
-            "dense": models.VectorParams(
+            DENSE_VECTOR_NAME: models.VectorParams(
                 size=settings.vector_size,
                 distance=models.Distance.COSINE
             )
         },
         sparse_vectors_config={
-            "sparse": models.SparseVectorParams()
+            SPARSE_VECTOR_NAME: models.SparseVectorParams()
         }
     )
     print(f"Created collection {collection_name}")

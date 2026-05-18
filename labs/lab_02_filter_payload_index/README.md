@@ -1,35 +1,35 @@
-﻿# Lab 02 - Filter Payload Index
+# Lab 02 - Filter Payload Index
 
-Lab nÃ y má»Ÿ rá»™ng tá»« Lab 01 báº±ng cÃ¡ch thá»±c hÃ nh filter theo payload, táº¡o payload index vÃ  thao tÃ¡c update/delete dá»¯ liá»‡u trong Qdrant.
+Lab này mở rộng từ Lab 01 bằng cách thực hành filter theo payload, tạo payload index và thao tác update/delete dữ liệu trong Qdrant.
 
-## ðŸŽ¯ Má»¥c tiÃªu
+## 🎯 Mục tiêu
 
-- Táº¡o collection riÃªng cho lab 02.
-- Ingest tÃ i liá»‡u kÃ¨m metadata.
-- Táº¡o payload index cho cÃ¡c field hay filter.
-- Scroll/search theo Ä‘iá»u kiá»‡n metadata.
-- Update payload hÃ ng loáº¡t.
+- Tạo collection riêng cho lab 02.
+- Ingest tài liệu kèm metadata.
+- Tạo payload index cho các field hay filter.
+- Scroll hoặc search theo điều kiện metadata.
+- Update payload hàng loạt.
 - Delete point theo filter.
 
-## ðŸ§© File chÃ­nh
+## 🧩 File chính
 
-| File | Vai trÃ² |
+| File | Vai trò |
 | --- | --- |
-| `create_collection.py` | Táº¡o láº¡i collection `documents_lab02` |
-| `ingest.py` | Ingest tÃ i liá»‡u vÃ o collection lab 02 |
-| `payload_index.py` | Táº¡o payload index cho `source`, `page`, `is_delete` |
-| `search_with_filter.py` | Scroll/search dá»¯ liá»‡u báº±ng filter |
-| `scroll_update_delete.py` | Demo set payload, scroll vÃ  delete báº±ng filter |
+| `create_collection.py` | Tạo lại collection `documents_lab02` |
+| `ingest.py` | Ingest tài liệu vào collection lab 02 |
+| `payload_index.py` | Tạo payload index cho `source`, `page`, `is_delete` |
+| `search_with_filter.py` | Scroll/search dữ liệu bằng filter |
+| `scroll_update_delete.py` | Demo set payload, scroll và delete bằng filter |
 
-## ðŸš€ CÃ¡ch cháº¡y
+## 🚀 Cách chạy
 
-Cháº¡y ingest:
+Chạy ingest:
 
 ```bash
 python -m labs.lab_02_filter_payload_index.ingest
 ```
 
-Táº¡o payload index:
+Tạo payload index:
 
 ```bash
 python -m labs.lab_02_filter_payload_index.payload_index
@@ -47,9 +47,9 @@ Test update/delete:
 python -m labs.lab_02_filter_payload_index.scroll_update_delete
 ```
 
-## ðŸ”Ž VÃ­ dá»¥ filter
+## 🔎 Ví dụ filter
 
-Filter theo file nguá»“n vÃ  trang:
+Filter theo file nguồn và trang:
 
 ```python
 models.Filter(
@@ -68,16 +68,16 @@ models.Filter(
 )
 ```
 
-## ðŸ§  Kiáº¿n thá»©c chÃ­nh
+## 🧠 Kiến thức chính
 
-- `MatchValue` dÃ¹ng cho exact match, phÃ¹ há»£p vá»›i `source`, `page`, `doc_type`, boolean flag.
-- `PayloadSchemaType.KEYWORD` phÃ¹ há»£p vá»›i field dáº¡ng Ä‘á»‹nh danh hoáº·c giÃ¡ trá»‹ cáº§n match chÃ­nh xÃ¡c.
-- `set_payload()` cÃ³ thá»ƒ update payload cho nhiá»u point theo filter.
-- `delete()` vá»›i `FilterSelector` cÃ³ thá»ƒ xÃ³a point theo Ä‘iá»u kiá»‡n metadata.
+- `MatchValue` dùng cho exact match, phù hợp với `source`, `page`, `doc_type`, boolean flag.
+- `PayloadSchemaType.KEYWORD` phù hợp với field dạng định danh hoặc giá trị cần match chính xác.
+- `set_payload()` có thể update payload cho nhiều point theo filter.
+- `delete()` với `FilterSelector` có thể xóa point theo điều kiện metadata.
 
-## ðŸ“Œ LÆ°u Ã½
+## 📌 Lưu ý
 
-- Collection dÃ¹ng trong lab nÃ y lÃ  `documents_lab02`.
-- Cháº¡y `ingest.py` sáº½ táº¡o láº¡i collection.
-- Sau khi táº¡o láº¡i collection, cáº§n cháº¡y láº¡i `payload_index.py` náº¿u muá»‘n cÃ³ index.
-- Field trong filter pháº£i Ä‘Ãºng tÃªn vÃ  Ä‘Ãºng giÃ¡ trá»‹ payload tháº­t, náº¿u khÃ´ng káº¿t quáº£ sáº½ rá»—ng.
+- Collection dùng trong lab này là `documents_lab02`.
+- Chạy `ingest.py` sẽ tạo lại collection.
+- Sau khi tạo lại collection, cần chạy lại `payload_index.py` nếu muốn có index.
+- Field trong filter phải đúng tên và đúng giá trị payload thật, nếu không kết quả sẽ rỗng.
