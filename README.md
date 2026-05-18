@@ -10,6 +10,50 @@ Bộ lab thực hành Qdrant cho các bài toán truy xuất tài liệu: ingest
 - Xây dựng hybrid retrieval bằng dense vector, sparse vector và RRF.
 - Chuẩn bị cấu trúc cho các lab nâng cao về tối ưu, rerank, memory và đánh giá retrieval.
 
+## 🧭 Bản đồ kiến thức
+
+Các hình trong `summary_image/` được xếp theo số thứ tự trong tên file. Ảnh đầu là tổng quan, các ảnh sau tương ứng với thứ tự lab từ 01 đến 09.
+
+### Tổng quan
+
+![Tổng quan Qdrant Learning Lab](<summary_image/ChatGPT Image 22_08_54 18 thg 5, 2026 (1).png>)
+
+### Lab 01 - Basic Retrieve
+
+![Lab 01 - Basic Retrieve](<summary_image/ChatGPT Image 22_08_54 18 thg 5, 2026 (2).png>)
+
+### Lab 02 - Filter Payload Index
+
+![Lab 02 - Filter Payload Index](<summary_image/ChatGPT Image 22_08_55 18 thg 5, 2026 (3).png>)
+
+### Lab 03 - HNSW Quantization
+
+![Lab 03 - HNSW Quantization](<summary_image/ChatGPT Image 22_08_55 18 thg 5, 2026 (4).png>)
+
+### Lab 04 - Hybrid Dense Sparse
+
+![Lab 04 - Hybrid Dense Sparse](<summary_image/ChatGPT Image 22_08_57 18 thg 5, 2026 (5).png>)
+
+### Lab 05 - Rerank Cross Encoder
+
+![Lab 05 - Rerank Cross Encoder](<summary_image/ChatGPT Image 22_09_00 18 thg 5, 2026 (6).png>)
+
+### Lab 06 - ColBERT Multivector
+
+![Lab 06 - ColBERT Multivector](<summary_image/ChatGPT Image 22_09_01 18 thg 5, 2026 (7).png>)
+
+### Lab 07 - Multitenancy Permission
+
+![Lab 07 - Multitenancy Permission](<summary_image/ChatGPT Image 22_09_02 18 thg 5, 2026 (8).png>)
+
+### Lab 08 - Agent Memory
+
+![Lab 08 - Agent Memory](<summary_image/ChatGPT Image 22_09_02 18 thg 5, 2026 (9).png>)
+
+### Lab 09 - Eval Retrieval
+
+![Lab 09 - Eval Retrieval](<summary_image/ChatGPT Image 22_09_03 18 thg 5, 2026 (10).png>)
+
 ## 📁 Cấu trúc thư mục
 
 ```text
