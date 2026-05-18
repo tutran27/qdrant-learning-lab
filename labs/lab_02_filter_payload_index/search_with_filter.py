@@ -4,6 +4,7 @@ from qdrant_client import QdrantClient, models
 from common.config import settings
 if __name__=="__main__":
     client=QdrantClient(path=settings.qdrant_path)
+    collection_name=settings.dense_collection_name + "_lab02"
 
     flt=models.Filter(
         must=[
@@ -18,7 +19,7 @@ if __name__=="__main__":
         ]
     )
     res, nextpage=client.scroll(
-        collection_name=settings.dense_collection_name,
+        collection_name=collection_name,
         limit=4,
         with_payload=True,
         with_vectors=False,

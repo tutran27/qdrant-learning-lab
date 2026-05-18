@@ -8,10 +8,12 @@ from common.chunking import text_split
 from common.embedding import embed_dense, load_dense_model
 from common.config import settings
 
-from labs.lab_01_basic_retrieve.create_collection import ensure_collection_exists
+from labs.lab_02_filter_payload_index.create_collection import ensure_collection_exists
 
 
 def ingest_file(client, path, lang="vi"):
+    collection_name=settings.dense_collection_name + "_lab02"
+
     pages = load_document(path)
     chunks = text_split(pages)
 
@@ -42,7 +44,7 @@ def ingest_file(client, path, lang="vi"):
         points.append(point)
 
     client.upsert(
-        collection_name=settings.dense_collection_name,
+        collection_name=collection_name,
         points=points,
         wait=True
     )

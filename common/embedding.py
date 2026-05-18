@@ -3,13 +3,17 @@ from qdrant_client import models
 from fastembed import SparseTextEmbedding
 from common.config import settings
 
-def embedding(chunks, model_bembedding = settings.embedding_model):
-    model=SentenceTransformer(model_bembedding)
-    vectors=model.encode(chunks, normalize_embeddings=True)
-    return vectors
 
-def sparse_embedding(chunks, sparse_embedding= settings.sparse_embedding_model):
-    model=SparseTextEmbedding(sparse_embedding)
+def load_dense_model():
+    return SentenceTransformer(settings.embedding_model)
+
+def embed_dense(model, chunks):
+    return model.encode(chunks, normalize_embeddings=True)
+
+def load_sparse_model():
+    return SparseTextEmbedding(settings.sparse_embedding_model)
+
+def embed_sparse(model, chunks):
     sparse_vectors=list(model.embed(chunks))
 
     chunks_sparse_embedded=[]
@@ -24,10 +28,13 @@ def sparse_embedding(chunks, sparse_embedding= settings.sparse_embedding_model):
     return chunks_sparse_embedded
 
 if __name__=="__main__":
-    chunks = "Hello World!!!"
-    dense_vector=embedding(chunks)
-    print(f"Dense vector: {dense_vector}")
+    chunks = ["Hello World!!!", "Python is great!"]
 
-    sparse_vectors=sparse_embedding(chunks)
+    model=load_dense_model()
+    dense_vectors=embed_dense(model, chunks)
+    print(f"Dense vector: {dense_vectors}")
+
+    sparse_model=load_sparse_model()
+    sparse_vectors=embed_sparse(sparse_model, chunks)
     print(f"Sparse vector: {sparse_vectors}")
 
