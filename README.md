@@ -1,16 +1,15 @@
 # Qdrant Learning Lab
 
-Bộ lab thực hành Qdrant cho các bài toán truy xuất tài liệu: ingest dữ liệu, tạo embedding, lưu payload metadata, tìm kiếm vector, filter, hybrid search và các hướng mở rộng như rerank, multivector, multi-tenancy, memory, evaluation.
+Bộ lab thực hành Qdrant cho các bài toán retrieval: ingest dữ liệu, tạo embedding, lưu payload metadata, vector search, filter, hybrid search, rerank, multivector và evaluation.
 
-## 🎯 Mục tiêu
+## Mục tiêu
 
-- Nắm được quy trình tạo collection, upsert point và query trong Qdrant.
-- Biết cách load tài liệu, chunk nội dung và tạo dense embedding.
+- Nắm quy trình tạo collection, upsert point và query trong Qdrant.
+- Biết cách load tài liệu, chunk nội dung và tạo embedding.
 - Thực hành payload metadata, payload index, scroll, update và delete.
-- Xây dựng hybrid retrieval bằng dense vector, sparse vector và RRF.
-- Chuẩn bị cấu trúc cho các lab nâng cao về tối ưu, rerank, memory và đánh giá retrieval.
+- Xây dựng dense retrieval, hybrid dense + sparse retrieval, rerank và multivector retrieval.
 
-## 📁 Cấu trúc thư mục
+## Cấu trúc thư mục
 
 ```text
 common/                              # Code dùng chung: config, embedding, chunking, loader
@@ -28,37 +27,41 @@ scripts/                              # Script tiện ích
 qdrant_storage/                       # Dữ liệu Qdrant local, không commit
 ```
 
-## ✅ Trạng thái lab
+## Trạng thái lab
 
 | Lab | Chủ đề | Trạng thái |
 | --- | --- | --- |
-| Lab 01 | Basic Retrieve | ✅ Đã có code |
-| Lab 02 | Filter Payload Index | ✅ Đã có code |
-| Lab 03 | HNSW Quantization | ⏳ Placeholder |
-| Lab 04 | Hybrid Dense Sparse | ✅ Đã có code |
-| Lab 05 | Rerank Cross Encoder | ⏳ Placeholder |
-| Lab 06 | ColBERT Multivector | ⏳ Placeholder |
-| Lab 07 | Multitenancy Permission | ⏳ Placeholder |
-| Lab 08 | Agent Memory | ⏳ Placeholder |
-| Lab 09 | Eval Retrieval | ⏳ Placeholder |
+| Lab 01 | Basic Retrieve | Đã có code |
+| Lab 02 | Filter Payload Index | Đã có code |
+| Lab 03 | HNSW Quantization | Placeholder |
+| Lab 04 | Hybrid Dense Sparse | Đã có code |
+| Lab 05 | Rerank Cross Encoder | Đã có code |
+| Lab 06 | ColBERT Multivector | Đã có code |
+| Lab 07 | Multitenancy Permission | Placeholder |
+| Lab 08 | Agent Memory | Placeholder |
+| Lab 09 | Eval Retrieval | Placeholder |
 
-## ⚙️ Cài đặt
-
-Cài dependency:
+## Cài đặt
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Các script hiện tại dùng Qdrant local mode:
+Nếu chạy trong WSL bằng conda env của project:
+
+```bash
+conda activate qdrant
+```
+
+Các script hiện dùng Qdrant local mode:
 
 ```python
 QdrantClient(path="./qdrant_storage")
 ```
 
-Vì vậy không cần chạy Qdrant server riêng nếu chỉ dùng các lab hiện tại.
+Vì vậy không cần chạy Qdrant server riêng cho các lab hiện tại.
 
-## 🚀 Thứ tự chạy khuyến nghị
+## Thứ tự chạy khuyến nghị
 
 ### Lab 01 - Basic Retrieve
 
@@ -86,18 +89,39 @@ python -m labs.lab_04_hybrid_dense_sparse.hybrid_rrf
 python -m labs.lab_04_hybrid_dense_sparse.scroll
 ```
 
-## 🗂️ Collection đang dùng
+### Lab 05 - Retrieve Then Rerank
+
+Lab 05 phụ thuộc collection của Lab 04.
+
+```bash
+python -m labs.lab_05_rerank_cross_encoder.retrieve_candidates
+python -m labs.lab_05_rerank_cross_encoder.pipeline_retrieve_then_rerank
+```
+
+### Lab 06 - ColBERT Multivector
+
+Nếu muốn so sánh Dense vs ColBERT, cần ingest cả Lab 04 và Lab 06.
+
+```bash
+python -m labs.lab_06_colbert_multivector.ingest_multivector
+python -m labs.lab_06_colbert_multivector.colbert_search
+python -m labs.lab_06_colbert_multivector.compare_with_dense
+```
+
+## Collection đang dùng
 
 | Lab | Collection |
 | --- | --- |
 | Lab 01 | `documents` |
 | Lab 02 | `documents_lab02` |
 | Lab 04 | `documents_lab04` |
+| Lab 05 | `documents_lab04` |
+| Lab 06 | `colbert_documents` |
 
-## 📌 Lưu ý
+## Lưu ý
 
-- Các script ingest thường tạo lại collection, nên dữ liệu cũ trong collection tương ứng sẽ bị xóa.
+- Các script ingest thường tạo lại collection, nên dữ liệu cũ trong collection tương ứng có thể bị xóa.
 - Lần đầu chạy embedding model có thể mất thời gian do tải hoặc load weight.
-- Với metadata như `source`, `file_name`, `page`, nên ưu tiên `MatchValue` nếu cần match chính xác.
-- `MatchText` phù hợp hơn cho field text dài hoặc field đã tạo text index rõ ràng.
+- Lab 05 dùng lại dữ liệu Lab 04.
+- Lab 06 dùng ColBERT/FastEmbed, có thể cần xóa cache nếu gặp lỗi thiếu file ONNX.
 - `qdrant_storage/`, cache Python và file môi trường đã được ignore trong `.gitignore`.
