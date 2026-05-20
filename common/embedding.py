@@ -1,6 +1,6 @@
 from sentence_transformers import SentenceTransformer
 from qdrant_client import models
-from fastembed import SparseTextEmbedding
+from fastembed import SparseTextEmbedding, LateInteractionEmbedding
 from common.config import settings
 
 
@@ -27,6 +27,12 @@ def embed_sparse(model, chunks):
 
     return chunks_sparse_embedded
 
+def load_colbert_model():
+    return LateInteractionEmbedding(settings.colbert_model_name)
+
+def embed_colbert(model, chunks):
+    return model.encode(chunks, normalize_embeddings=True)
+    
 if __name__=="__main__":
     chunks = ["Hello World!!!", "Python is great!"]
 

@@ -10,6 +10,7 @@ class Settings:
     qdrant_path: str = os.getenv("QDRANT_PATH", "./qdrant_storage")
     dense_collection_name: str = os.getenv("DENSE_COLLECTION_NAME", "documents")
     hybrid_collection_name: str = os.getenv("HYBRID_COLLECTION_NAME", "hybrid_documents")
+    colbert_collection_name: str = os.getenv("COLBERT_COLLECTION_NAME", "colbert_documents")
     cross_encoder_name: str = os.getenv(
         "CROSS_ENCODER_NAME",
         "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
@@ -20,6 +21,8 @@ class Settings:
     hf_token: str = os.getenv("HF_TOKEN")
     embedding_model: str = os.getenv("EMBEDDING_MODEL", "bkai-foundation-models/vietnamese-bi-encoder")
     sparse_embedding_model = os.getenv("SPARSE_EMBEDDING_MODEL", "Qdrant/bm25")
+    colbert_model_name: str = os.getenv("COLBERT_MODEL_NAME", "colbert-ir/colbertv2.0")    
+    
     chunk_size: int = 512
     chunk_overlap: int = 128
     max_retries: int = 3
