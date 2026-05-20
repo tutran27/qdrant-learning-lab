@@ -1,4 +1,4 @@
-# Lab 04 - Hybrid Dense Sparse Search
+# 🔀 Lab 04 - Hybrid Dense Sparse Search
 
 Lab này thực hành hybrid retrieval với Qdrant bằng cách lưu cùng lúc dense vector và sparse vector, sau đó tìm kiếm riêng từng loại hoặc fusion bằng RRF.
 

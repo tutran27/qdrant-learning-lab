@@ -1,4 +1,4 @@
-# Lab 01 - Basic Retrieve
+# 🔎 Lab 01 - Basic Retrieve
 
 Lab này thực hành luồng retrieval cơ bản với Qdrant: tạo collection, ingest tài liệu, tạo dense embedding và query semantic search.
 

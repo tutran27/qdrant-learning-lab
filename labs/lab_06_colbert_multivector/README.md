@@ -1,15 +1,15 @@
-# Lab 06 - ColBERT Multivector Retrieval
+# 🧬 Lab 06 - ColBERT Multivector Retrieval
 
 Lab này thực hành late-interaction retrieval với ColBERT và Qdrant multivector. Khác với dense embedding chỉ lưu một vector cho mỗi chunk, ColBERT lưu nhiều vector token-level cho một chunk và dùng `MAX_SIM` để so khớp query với document.
 
-## Mục tiêu
+## 🎯 Mục tiêu
 
 - Tạo collection Qdrant có multivector config.
 - Ingest document bằng ColBERT embedding.
 - Search bằng vector tên `colbert`.
 - So sánh kết quả ColBERT với dense search từ Lab 04.
 
-## File chính
+## 🧩 File chính
 
 | File | Vai trò |
 | --- | --- |
@@ -18,7 +18,7 @@ Lab này thực hành late-interaction retrieval với ColBERT và Qdrant multiv
 | `colbert_search.py` | Search bằng ColBERT multivector |
 | `compare_with_dense.py` | Chạy cùng query qua dense search và ColBERT để so sánh |
 
-## Cách chạy
+## 🚀 Cách chạy
 
 Nếu chạy trong WSL:
 
@@ -50,7 +50,7 @@ So sánh Dense vs ColBERT:
 python -m labs.lab_06_colbert_multivector.compare_with_dense
 ```
 
-## Dense vs ColBERT
+## ⚖️ Dense vs ColBERT
 
 | Tiêu chí | Dense retrieval | ColBERT multivector |
 | --- | --- | --- |
@@ -61,14 +61,14 @@ python -m labs.lab_06_colbert_multivector.compare_with_dense
 | Storage | Nhẹ hơn | Nặng hơn vì mỗi chunk có nhiều vector |
 | Use case phù hợp | Search mặc định, baseline, dữ liệu lớn | Rerank/search chất lượng cao, query cần bám sát nội dung |
 
-## Collection
+## 🗂️ Collection
 
 | Loại | Collection | Vector name |
 | --- | --- | --- |
 | Dense Lab 04 | `documents_lab04` | `dense` |
 | ColBERT Lab 06 | `colbert_documents` | `colbert` |
 
-## Lưu ý
+## 📌 Lưu ý
 
 - ColBERT phụ thuộc `LateInteractionTextEmbedding` của FastEmbed, lần đầu chạy có thể mất thời gian tải model.
 - Nếu gặp lỗi thiếu `model.onnx`, thường là cache FastEmbed bị hỏng hoặc model không đúng format ONNX mà FastEmbed hỗ trợ.

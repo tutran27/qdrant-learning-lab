@@ -11,13 +11,15 @@ from common.config import settings
 from labs.lab_01_basic_retrieve.create_collection import ensure_collection_exists
 
 
-def ingest_file(client, path, lang="vi"):
+COLLECTION_NAME= COLLECTION_NAME = f"{settings.dense_collection_name}_lab01"
+
+def ingest_file(client, dense_model, path, lang="vi"):
     pages = load_document(path)
     chunks = text_split(pages)
 
     chunks_content=[x.page_content for x in chunks]
-    model = load_dense_model()
-    chunks_embedded = embed_dense(model, chunks_content)
+    
+    chunks_embedded = embed_dense(dense_model, chunks_content)
 
     doc_type = os.path.splitext(path)[-1]
     points = []
@@ -42,7 +44,7 @@ def ingest_file(client, path, lang="vi"):
         points.append(point)
 
     client.upsert(
-        collection_name=settings.dense_collection_name,
+        collection_name=COLLECTION_NAME,
         points=points,
         wait=True
     )
@@ -54,13 +56,13 @@ if __name__ == "__main__":
     client = QdrantClient(path=settings.qdrant_path)
     ensure_collection_exists(client)
     files = os.listdir(PATH)
-
+    dense_model=load_dense_model()
     try:
         for file in files:
             path = os.path.join(PATH, file)
             if not os.path.isfile(path):
                 continue
 
-            ingest_file(client, path)
+            ingest_file(client,dense_model, path)
     finally:
         client.close()

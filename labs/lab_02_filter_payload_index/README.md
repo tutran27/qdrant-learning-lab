@@ -1,4 +1,4 @@
-# Lab 02 - Filter Payload Index
+# 🧭 Lab 02 - Filter Payload Index
 
 Lab này mở rộng từ Lab 01 bằng cách thực hành filter theo payload, tạo payload index và thao tác update/delete dữ liệu trong Qdrant.
 
