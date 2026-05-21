@@ -7,7 +7,7 @@ COLLECTION_NAME=settings.colbert_collection_name
 def ensure_colbert_collection(client:QdrantClient, vector_size=3072):
     if client.collection_exists(collection_name=COLLECTION_NAME):
         print("ColBERT collection already exists")
-        client.delete_collection(collection_name)
+        client.delete_collection(collection_name=COLLECTION_NAME)
     else:
         client.recreate_collection(
         collection_name=COLLECTION_NAME,
