@@ -1,10 +1,9 @@
-from IPython.core import getipython
 from qdrant_client import QdrantClient, models
 from uuid import uuid4
 import json
 import os
 
-from labs.lab_07_multitenancy_permission.create_tenant_index import ensure_collection
+from labs.lab_07_multitenancy_permission.create_tenant_index import ensure_collection, create_payload_index, create_tenant_index
 
 from common.config import settings
 from common.document_loader import load_document
@@ -71,15 +70,37 @@ def ingest_multi_tenant(client: QdrantClient,
 
 if __name__=="__main__":
     BASE_DIR="data/raw/sample_docs"
+    TENANT_INDEX = [
+        ("tenant_id", 
+            models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD, is_tenant=True)
+        )
+    ]
+    
+    PAYLOAD_INDEX = [
+        ("user_id", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
+        ("access_roles", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
+        ("visibility", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
+        
+        ("file_name", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
+        ("source", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
+        ("doc_type", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
+        ("lang", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
+
+        ("title", models.TextIndexParams(type=models.TextIndexType.TEXT)),
+        ("is_deleted", models.BoolIndexParams(type=models.BoolIndexType.BOOL)),
+    ]
+    
     client=QdrantClient(path=settings.qdrant_path)
 
     ensure_collection(client)
-
+    create_payload_index(client, TENANT_INDEX)
+    create_payload_index(client, PAYLOAD_INDEX)
+    
     dense_model=load_dense_model()
     
     for file in os.listdir(BASE_DIR):
         path=os.path.join(BASE_DIR,file)
         if not os.path.isfile(path):
             continue
-        ingest_multi_tenant(client, path, "tenant1", "user1", ["admin"], "private", dense_model)
+        ingest_multi_tenant(client, path, "qdrant_labs", "tutran", ["viewer", "editor", "admin"], "private", dense_model)
     client.close()

@@ -4,7 +4,9 @@ from common.config import settings
 COLLECTION_NAME = f"{settings.dense_collection_name}_law_tenant"
 
 def ensure_collection(client: QdrantClient):
-    client.recreate_collection(
+    if client.collection_exists(collection_name=COLLECTION_NAME):
+        client.delete_collection(collection_name=COLLECTION_NAME)
+    client.create_collection(
         collection_name=COLLECTION_NAME,
         vectors_config=models.VectorParams(
             size=settings.vector_size,
