@@ -4,6 +4,12 @@ import json
 import os
 
 from labs.lab_07_multitenancy_permission.create_tenant_index import ensure_collection, create_payload_index, create_tenant_index
+from labs.lab_07_multitenancy_permission.constant import (
+    COLLECTION_NAME,
+    TENANT_INDEX,
+    PAYLOAD_INDEX,
+    BASE_DIR
+)
 
 from common.config import settings
 from common.document_loader import load_document
@@ -12,8 +18,6 @@ from common.embedding import (
     load_dense_model,
     embed_dense
 )
-
-COLLECTION_NAME = f"{settings.dense_collection_name}_law_tenant"
 
 def ingest_multi_tenant(client: QdrantClient, 
                         path: str,
@@ -69,26 +73,6 @@ def ingest_multi_tenant(client: QdrantClient,
     print(f"Uploaded {len(points)} points from {path}")
 
 if __name__=="__main__":
-    BASE_DIR="data/raw/sample_docs"
-    TENANT_INDEX = [
-        ("tenant_id", 
-            models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD, is_tenant=True)
-        )
-    ]
-    
-    PAYLOAD_INDEX = [
-        ("user_id", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-        ("access_roles", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-        ("visibility", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-        
-        ("file_name", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-        ("source", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-        ("doc_type", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-        ("lang", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-
-        ("title", models.TextIndexParams(type=models.TextIndexType.TEXT)),
-        ("is_deleted", models.BoolIndexParams(type=models.BoolIndexType.BOOL)),
-    ]
     
     client=QdrantClient(path=settings.qdrant_path)
 

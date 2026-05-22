@@ -23,6 +23,9 @@ class Settings:
     sparse_embedding_model = os.getenv("SPARSE_EMBEDDING_MODEL", "Qdrant/bm25")
     colbert_model_name: str = os.getenv("COLBERT_MODEL_NAME", "colbert-ir/colbertv2.0")    
     
+    groq_api_key: str = os.getenv("GROQ_API_KEY")
+    groq_model: str = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
+    
     chunk_size: int = 512
     chunk_overlap: int = 128
     max_retries: int = 3

@@ -2,7 +2,9 @@ from qdrant_client import QdrantClient, models
 from common.config import settings
 from common.embedding import load_dense_model, embed_dense 
 
-COLLECTION_NAME = f"{settings.dense_collection_name}_law_tenant"
+from labs.lab_07_multitenancy_permission.constant import (
+    COLLECTION_NAME
+)
 
 def build_access_filter(tenant_id: str, user_roles: list[str]):
     print("Tạo filter với tenant_id:", tenant_id, "và user_roles:", user_roles)
@@ -12,6 +14,12 @@ def build_access_filter(tenant_id: str, user_roles: list[str]):
                 key="tenant_id",
                 match=models.MatchValue(
                     value=tenant_id
+                )
+            ),
+            models.FieldCondition(
+                key="is_deleted",
+                match=models.MatchValue(
+                    value=False
                 )
             ),
             models.Filter(
@@ -34,8 +42,7 @@ def build_access_filter(tenant_id: str, user_roles: list[str]):
         ]
     )
      
-def search(query, tenant_id: str, user_roles: list[str], limit: int = 5):
-    dense_model = load_dense_model()
+def search(query: str, dense_model, tenant_id: str = "qdrant_labs", user_roles: list[str] = ["viewer"], limit: int = 5):
     query_vector = embed_dense(dense_model, query)
     
     client = QdrantClient(path=settings.qdrant_path)
@@ -53,10 +60,12 @@ def search(query, tenant_id: str, user_roles: list[str], limit: int = 5):
 
 if __name__ == "__main__":
     # Example usage
+    import json
     query = "Quy trình tạo ra NoteBookLM"
     tenant_id = "qdrant_labs"
     user_roles = ["viewer"]
-    results = search(query, tenant_id, user_roles)
+    dense_model = load_dense_model()
+    results = search(query, dense_model, tenant_id, user_roles)
     
     for result in results:
         print(f"ID: {result.id}")

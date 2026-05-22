@@ -1,7 +1,11 @@
 from qdrant_client import QdrantClient, models
 from common.config import settings
 
-COLLECTION_NAME = f"{settings.dense_collection_name}_law_tenant"
+from labs.lab_07_multitenancy_permission.constant import (
+    COLLECTION_NAME,
+    TENANT_INDEX,
+    PAYLOAD_INDEX
+)
 
 def ensure_collection(client: QdrantClient):
     if client.collection_exists(collection_name=COLLECTION_NAME):
@@ -40,26 +44,6 @@ def create_payload_index(client, pairs: list[tuple]):
 if __name__=="__main__":
     client=QdrantClient(path=settings.qdrant_path)
     ensure_collection(client)
-
-    TENANT_INDEX = [
-        ("tenant_id", 
-            models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD, is_tenant=True)
-        )
-    ]
-    
-    PAYLOAD_INDEX = [
-        ("user_id", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-        ("access_roles", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-        ("visibility", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-        
-        ("file_name", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-        ("source", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-        ("doc_type", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-        ("lang", models.KeywordIndexParams(type=models.KeywordIndexType.KEYWORD)),
-
-        ("title", models.TextIndexParams(type=models.TextIndexType.TEXT)),
-        ("is_deleted", models.BoolIndexParams(type=models.BoolIndexType.BOOL)),
-    ]
 
     create_payload_index(client, PAYLOAD_INDEX)
     create_tenant_index(client, TENANT_INDEX)

@@ -5,7 +5,7 @@ from common.config import settings
 
 # Dense model
 def load_dense_model():
-    return SentenceTransformer(settings.embedding_model)
+    return SentenceTransformer(settings.embedding_model, token=settings.hf_token)
 
 def embed_dense(model, chunks):
     return model.encode(chunks, normalize_embeddings=True)

@@ -1,16 +1,23 @@
 from qdrant_client import QdrantClient, models
 from common.config import settings
 from common.embedding import embed_dense, load_dense_model
-COLLECTION_NAME = "documents_law_tenant"
 
-def search_by_tenant(dense_model, query: str, tenant_id: str, limit: int = 5):
+from labs.lab_07_multitenancy_permission.constant import (
+    COLLECTION_NAME,
+)
+
+def search_by_tenant(dense_model, query: str, tenant_id: str = "qdrant_labs", limit: int = 5):
     query_vector = embed_dense(dense_model, query)
     client = QdrantClient(path=settings.qdrant_path)
     flt=models.Filter(
         must=[
             models.FieldCondition(
                 key="tenant_id",
-                match=models.MatchValue(value="qdrant_labs")
+                match=models.MatchValue(value=tenant_id)
+            ),
+            models.FieldCondition(
+                key="is_deleted",
+                match=models.MatchValue(value=False)
             )
         ]
     )
@@ -23,8 +30,9 @@ def search_by_tenant(dense_model, query: str, tenant_id: str, limit: int = 5):
         with_payload=True,
         with_vectors=False,
     )
+    client.close()
     return res.points
-
+    
 if __name__ == "__main__":
     import json
     
