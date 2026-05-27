@@ -1,0 +1,365 @@
+{
+  "version": "1.0",
+  "description": "Evaluation set for Lab 09 retrieval over PDFs in data/raw/sample_docs. Ground truth is labeled at document/page/topic level because Qdrant point ids are generated with uuid4 during ingest and chunk ids can shift when chunking settings change.",
+  "source_dir": "data/raw/sample_docs",
+  "documents": [
+    {
+      "file_name": "Complete Roadmap to Become an Agentic AI Engineer.pdf",
+      "short_name": "agentic_ai_roadmap",
+      "language": "en",
+      "topics": [
+        "agentic AI roadmap",
+        "Python fundamentals",
+        "LLM fundamentals",
+        "agent frameworks",
+        "memory management",
+        "tool integration",
+        "RAG",
+        "multi-agent systems",
+        "production deployment"
+      ]
+    },
+    {
+      "file_name": "MemoryAgent.pdf",
+      "short_name": "memory_agent_lab",
+      "language": "vi",
+      "topics": [
+        "short-term memory",
+        "SQLite memory",
+        "semantic memory",
+        "hybrid memory retrieval",
+        "memory writer",
+        "reflection memory",
+        "memory evaluation",
+        "Qwen local LLM"
+      ]
+    },
+    {
+      "file_name": "qdrant_vector_db_ai_v2.pdf",
+      "short_name": "qdrant_vector_db_ai",
+      "language": "vi",
+      "topics": [
+        "Qdrant",
+        "vector search",
+        "collection point payload",
+        "embedding",
+        "filtering",
+        "payload index",
+        "HNSW",
+        "hybrid search",
+        "multivector",
+        "multitenancy",
+        "retrieval evaluation"
+      ]
+    },
+    {
+      "file_name": "[Description]-Building-Simple-NotebookLM.pdf",
+      "short_name": "simple_notebooklm",
+      "language": "vi",
+      "topics": [
+        "NotebookLM",
+        "RAG learning system",
+        "document QA",
+        "summarization",
+        "quiz generation",
+        "flashcards",
+        "Ragas evaluation",
+        "chunking experiment",
+        "reranking"
+      ]
+    }
+  ],
+  "queries": [
+    {
+      "id": "qdrant_001",
+      "query": "Qdrant là gì và nó giải quyết bài toán nào trong hệ thống AI?",
+      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
+      "relevant_pages": [4],
+      "relevant_topics": ["Qdrant", "vector database", "AI applications"],
+      "expected_answer": "Qdrant là vector database/vector search engine dùng để lưu embedding và tìm kiếm các đối tượng gần nghĩa, phục vụ các bài toán như RAG, semantic search, hybrid search, recommendation, multimodal search và agent memory."
+    },
+    {
+      "id": "qdrant_002",
+      "query": "Collection, point và payload trong Qdrant khác nhau như thế nào?",
+      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
+      "relevant_pages": [7],
+      "relevant_topics": ["collection", "point", "payload"],
+      "expected_answer": "Collection là không gian tìm kiếm, point là bản ghi gồm id, vector và payload, còn payload là metadata JSON dùng để lưu text, source, page, tenant_id, doc_type, tags hoặc quyền truy cập."
+    },
+    {
+      "id": "qdrant_003",
+      "query": "Khi nào nên dùng payload filter và payload index trong Qdrant?",
+      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
+      "relevant_pages": [11, 12],
+      "relevant_topics": ["filtering", "payload index"],
+      "expected_answer": "Payload filter dùng để giới hạn retrieval theo metadata như tenant, source, doc_type, page hoặc quyền truy cập. Payload index nên tạo cho các field hay filter để Qdrant lọc nhanh hơn và query planner tốt hơn."
+    },
+    {
+      "id": "qdrant_004",
+      "query": "Hybrid search dense + sparse trong Qdrant hữu ích trong trường hợp nào?",
+      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
+      "relevant_pages": [22, 23],
+      "relevant_topics": ["hybrid search", "dense retrieval", "sparse retrieval", "RRF"],
+      "expected_answer": "Hybrid search hữu ích khi query vừa cần hiểu nghĩa vừa cần khớp chính xác thuật ngữ, mã, tên hàm hoặc keyword. Dense bắt nghĩa, sparse bắt exact match, còn RRF hợp nhất theo thứ hạng thay vì cộng raw score."
+    },
+    {
+      "id": "qdrant_005",
+      "query": "HNSW và tham số hnsw_ef ảnh hưởng gì đến search trong Qdrant?",
+      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
+      "relevant_pages": [15, 16],
+      "relevant_topics": ["HNSW", "ANN", "search_params", "hnsw_ef"],
+      "expected_answer": "HNSW là cấu trúc chỉ mục approximate nearest neighbor. Tham số hnsw_ef trong lúc search điều chỉnh phạm vi khám phá ứng viên: ef cao thường tăng recall nhưng cũng tăng latency."
+    },
+    {
+      "id": "qdrant_006",
+      "query": "Multitenancy trong Qdrant nên thiết kế như thế nào để tránh rò rỉ dữ liệu?",
+      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
+      "relevant_pages": [23, 24],
+      "relevant_topics": ["multitenancy", "tenant_id", "access control"],
+      "expected_answer": "Không nên tạo một collection cho mỗi user ở quy mô lớn. Nên dùng collection chung với payload tenant_id hoặc access_roles, tạo tenant index và bắt buộc filter ở backend trong mỗi truy vấn."
+    },
+    {
+      "id": "qdrant_007",
+      "query": "Các metric quan trọng để đánh giá retrieval trong Qdrant/RAG là gì?",
+      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
+      "relevant_pages": [26],
+      "relevant_topics": ["evaluation", "Recall@k", "MRR", "Precision@k", "latency"],
+      "expected_answer": "Các metric retrieval quan trọng gồm Recall@k, MRR, Precision@k, hit rate và latency P50/P95/P99. Recall@k cho biết top-k có chứa tài liệu đúng hay không, MRR đo tài liệu đúng xuất hiện sớm đến đâu."
+    },
+    {
+      "id": "qdrant_008",
+      "query": "Những lỗi phổ biến khi mới dùng Qdrant là gì?",
+      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
+      "relevant_pages": [27],
+      "relevant_topics": ["common mistakes", "vector size", "chunking", "filtering"],
+      "expected_answer": "Các lỗi phổ biến gồm tạo collection sai vector size, lưu cả tài liệu dài thành một vector, không dùng payload filter cho tenant/quyền, và chỉ dùng vector search cho query chứa keyword hoặc mã kỹ thuật."
+    },
+    {
+      "id": "memory_001",
+      "query": "Trong agent, context và memory khác nhau như thế nào?",
+      "relevant_docs": ["MemoryAgent.pdf"],
+      "relevant_pages": [3],
+      "relevant_topics": ["context", "memory", "agent memory"],
+      "expected_answer": "Context là phần text được đưa vào prompt hiện tại và chỉ sống trong một lần gọi LLM. Memory là hệ thống lưu, truy xuất, lọc, tóm tắt và đưa thông tin cũ trở lại prompt khi cần."
+    },
+    {
+      "id": "memory_002",
+      "query": "Luồng hoạt động tổng quát của memory agent gồm những bước nào?",
+      "relevant_docs": ["MemoryAgent.pdf"],
+      "relevant_pages": [4],
+      "relevant_topics": ["memory agent flow", "retriever", "ranker", "prompt builder"],
+      "expected_answer": "User input đi vào short-term memory và memory retriever; retriever tìm qua keyword search, vector search và recent memory; memory ranker chọn kết quả; prompt builder ghép memory và history để gọi LLM; sau đó memory writer lưu thông tin cần nhớ."
+    },
+    {
+      "id": "memory_003",
+      "query": "Semantic memory bằng embedding giúp giải quyết vấn đề gì so với keyword search?",
+      "relevant_docs": ["MemoryAgent.pdf"],
+      "relevant_pages": [5],
+      "relevant_topics": ["semantic memory", "embedding", "vector search"],
+      "expected_answer": "Semantic memory giúp tìm lại ký ức theo nghĩa dù user hỏi bằng từ khác. Keyword search có thể bỏ sót nếu không trùng từ khóa, còn embedding tìm được các câu gần nghĩa."
+    },
+    {
+      "id": "memory_004",
+      "query": "Hybrid memory kết hợp những thành phần điểm số nào?",
+      "relevant_docs": ["MemoryAgent.pdf"],
+      "relevant_pages": [6],
+      "relevant_topics": ["hybrid memory", "semantic_score", "keyword_bonus", "importance", "recency"],
+      "expected_answer": "Hybrid memory kết hợp semantic score, keyword bonus, importance và recency score. Vector search bắt nghĩa, keyword search bắt tên riêng/mã lỗi/tên file, recency ưu tiên thông tin mới, importance ưu tiên thông tin quan trọng."
+    },
+    {
+      "id": "memory_005",
+      "query": "Memory writer nên lưu loại thông tin nào và không nên lưu loại nào?",
+      "relevant_docs": ["MemoryAgent.pdf"],
+      "relevant_pages": [6, 7, 29],
+      "relevant_topics": ["memory writer", "memory policy", "what to store"],
+      "expected_answer": "Memory writer nên lưu preference dài hạn, mục tiêu học tập, thông tin project, quyết định quan trọng, lỗi đã xử lý hoặc cấu hình môi trường. Không nên lưu mọi câu hỏi ngắn, thông tin rác hoặc thông tin nhạy cảm không cần thiết."
+    },
+    {
+      "id": "memory_006",
+      "query": "Reflection memory là gì và dùng để làm gì?",
+      "relevant_docs": ["MemoryAgent.pdf"],
+      "relevant_pages": [7, 28],
+      "relevant_topics": ["reflection memory", "summary memory"],
+      "expected_answer": "Reflection memory là memory cấp cao được rút ra từ nhiều lượt hội thoại, ví dụ người dùng thường học qua project thực tế hoặc thích giải thích chi tiết. Nó giúp cô đọng thông tin thay vì lưu nhiều raw history."
+    },
+    {
+      "id": "memory_007",
+      "query": "Làm thế nào để đánh giá memory có thật sự giúp agent trả lời tốt hơn?",
+      "relevant_docs": ["MemoryAgent.pdf"],
+      "relevant_pages": [7, 28],
+      "relevant_topics": ["memory evaluation", "memory_hit_rate", "keyword recall"],
+      "expected_answer": "Tạo test case gồm setup turns, câu hỏi và expected keywords, rồi so sánh câu trả lời without memory và with memory bằng các chỉ số như memory_hit_rate, expected_keyword_recall và answer_groundedness."
+    },
+    {
+      "id": "memory_008",
+      "query": "Thứ tự nên code một project memory agent là gì?",
+      "relevant_docs": ["MemoryAgent.pdf"],
+      "relevant_pages": [31],
+      "relevant_topics": ["implementation order", "project structure"],
+      "expected_answer": "Nên code theo thứ tự: config.py, llm/qwen_local.py, memory/schema.py, memory/sqlite_memory.py, memory/embedder.py, memory/memory_manager.py, agent/prompt_builder.py, agent/memory_agent.py, main.py và scripts/visualize_memory.py."
+    },
+    {
+      "id": "notebooklm_001",
+      "query": "Project Building a Simple NotebookLM nhằm giải quyết vấn đề gì?",
+      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
+      "relevant_pages": [1, 2],
+      "relevant_topics": ["NotebookLM", "RAG", "hallucination"],
+      "expected_answer": "Project mô phỏng hệ thống học tập dựa trên tài liệu cá nhân, dùng RAG để truy xuất đoạn liên quan từ tài liệu đã index rồi đưa vào prompt, giúp câu trả lời có căn cứ và giảm hallucination."
+    },
+    {
+      "id": "notebooklm_002",
+      "query": "Input và output chính của hệ thống Simple NotebookLM là gì?",
+      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
+      "relevant_pages": [2],
+      "relevant_topics": ["input output", "PDF", "QA", "summary", "quiz", "flashcards"],
+      "expected_answer": "Input gồm PDF học tập, câu hỏi/yêu cầu văn bản và các tùy chọn lọc theo tài liệu, trang hoặc metadata. Output gồm câu trả lời có trích dẫn, tóm tắt, quiz, flashcards và kết quả JSON/Markdown."
+    },
+    {
+      "id": "notebooklm_003",
+      "query": "Pipeline RAG trong Simple NotebookLM vận hành qua những bước nào?",
+      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
+      "relevant_pages": [4],
+      "relevant_topics": ["RAG pipeline", "retrieval", "prompt", "LLM", "schema"],
+      "expected_answer": "Pipeline gồm truy xuất chunk liên quan từ Qdrant, đóng gói các chunk vào prompt template theo tác vụ, gọi backend LLM như HuggingFace local/Gemini/vLLM, rồi chuẩn hóa kết quả bằng schema kèm citation và chunk đã dùng."
+    },
+    {
+      "id": "notebooklm_004",
+      "query": "Simple NotebookLM hỗ trợ những chức năng học tập nào ngoài hỏi đáp?",
+      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
+      "relevant_pages": [5, 20],
+      "relevant_topics": ["summarization", "quiz", "flashcards", "learning features"],
+      "expected_answer": "Ngoài hỏi đáp trên tài liệu, hệ thống hỗ trợ tóm tắt nội dung, tạo câu hỏi trắc nghiệm và tạo flashcards từ nội dung truy xuất. Người dùng có thể dùng qua Streamlit UI, CLI hoặc FastAPI."
+    },
+    {
+      "id": "notebooklm_005",
+      "query": "Các metric Ragas được dùng để đánh giá Simple NotebookLM gồm những gì?",
+      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
+      "relevant_pages": [28, 29],
+      "relevant_topics": ["Ragas", "context recall", "context precision", "faithfulness", "answer relevance"],
+      "expected_answer": "Ragas dùng context recall, context precision, faithfulness và answer relevance. Hai metric đầu đánh giá retrieval, còn faithfulness và answer relevance đánh giá chất lượng generation."
+    },
+    {
+      "id": "notebooklm_006",
+      "query": "Thử nghiệm chunking trong Simple NotebookLM so sánh những phương pháp nào?",
+      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
+      "relevant_pages": [30, 31, 32, 33],
+      "relevant_topics": ["chunking experiment", "recursive chunking", "semantic chunking"],
+      "expected_answer": "Thử nghiệm so sánh Recursive Chunking với các cấu hình 500/50, 800/100, 1000/150, 1500/200 và Semantic Chunking với percentile, standard deviation và interquartile breakpoint."
+    },
+    {
+      "id": "notebooklm_007",
+      "query": "Vì sao cấu hình Recursive Chunker 1000/150 được chọn làm baseline?",
+      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
+      "relevant_pages": [32, 33],
+      "relevant_topics": ["recursive chunking", "1000/150", "context precision", "context recall"],
+      "expected_answer": "Recursive Chunker 1000/150 được chọn vì đạt context precision cao nhất trong nhóm recursive và vẫn giữ context recall 0.92, tạo nền tảng retrieval cân bằng trước khi thêm reranking."
+    },
+    {
+      "id": "notebooklm_008",
+      "query": "Reranking bằng Cross-Encoder cải thiện hệ thống NotebookLM như thế nào?",
+      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
+      "relevant_pages": [34, 35, 36, 37],
+      "relevant_topics": ["reranking", "Cross-Encoder", "context precision", "context recall"],
+      "expected_answer": "Reranking lấy nhiều candidate ban đầu, dùng Cross-Encoder chấm lại mức liên quan giữa query và từng chunk, rồi chọn top chunk tốt nhất. Kết quả làm context precision tăng lên khoảng 0.9247, context recall khoảng 0.94 và answer relevance cải thiện."
+    },
+    {
+      "id": "roadmap_001",
+      "query": "Roadmap học Agentic AI Engineer năm 2026 nên đi theo thứ tự nào?",
+      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
+      "relevant_pages": [1, 20],
+      "relevant_topics": ["agentic AI roadmap", "learning order"],
+      "expected_answer": "Roadmap đi theo hướng foundation-first: Python fundamentals, LLM fundamentals, chọn framework, advanced workflows, memory, tools, RAG, agents/multi-agents, rồi real-world projects như FastAPI, UI, Docker, cloud và evaluation."
+    },
+    {
+      "id": "roadmap_002",
+      "query": "Một Python project cho agentic system nên được cấu trúc như thế nào?",
+      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
+      "relevant_pages": [2],
+      "relevant_topics": ["Python project structure", "agentic system"],
+      "expected_answer": "Nên tách app/API/UI, core domain logic, agents/graphs/routers, tools wrappers, rag chunking/retrieval, eval golden sets và infra Docker/config. Cần typed interfaces, tests và quản lý dependency."
+    },
+    {
+      "id": "roadmap_003",
+      "query": "Những rủi ro chính của LLM apps trong production là gì?",
+      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
+      "relevant_pages": [5],
+      "relevant_topics": ["LLM production risks", "security", "privacy", "cost", "latency"],
+      "expected_answer": "Rủi ro gồm reliability, prompt injection, data leak, privacy/PII, cost và latency spike, evaluation drift. Agent còn có rủi ro vì có thể hành động qua tools, nên cần policy layer, least privilege, audit logs và staged rollout."
+    },
+    {
+      "id": "roadmap_004",
+      "query": "Khi nào nên chọn LangGraph thay vì chỉ dùng agent loop đơn giản?",
+      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
+      "relevant_pages": [6],
+      "relevant_topics": ["LangGraph", "agent framework", "state graph"],
+      "expected_answer": "LangGraph phù hợp khi cần workflow rõ ràng dạng graph/state machine, checkpoint, retries, policy boundaries, long-running workflow và human-in-the-loop. Nó dễ debug và kiểm soát hơn implicit loops."
+    },
+    {
+      "id": "roadmap_005",
+      "query": "Trong Agentic AI, memory management gồm những loại memory nào?",
+      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
+      "relevant_pages": [10, 11],
+      "relevant_topics": ["memory management", "short-term memory", "long-term memory", "checkpointing"],
+      "expected_answer": "Memory management gồm short-term memory trong context/history gần, long-term memory lưu ngoài context bằng database/vector store, summary/reflection memory và checkpointing state để replay hoặc resume workflow."
+    },
+    {
+      "id": "roadmap_006",
+      "query": "Một tool như thế nào được xem là agent-friendly?",
+      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
+      "relevant_pages": [12],
+      "relevant_topics": ["tool integration", "agent-friendly tools"],
+      "expected_answer": "Tool agent-friendly có tên rõ, phạm vi hẹp, input schema typed, output deterministic và structured, timeout/failure rõ ràng, an toàn khi gọi lặp lại và dễ test."
+    },
+    {
+      "id": "roadmap_007",
+      "query": "RAG evaluation nên đo những metric nào theo roadmap Agentic AI?",
+      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
+      "relevant_pages": [14, 15],
+      "relevant_topics": ["RAG evaluation", "recall", "precision", "MRR", "nDCG"],
+      "expected_answer": "RAG evaluation nên đo retrieval metrics như recall@k, precision@k, MRR, nDCG và answer metrics như factuality, citation correctness, task success, cùng latency, cost và failure rates."
+    },
+    {
+      "id": "roadmap_008",
+      "query": "ReAct pattern trong agent là gì?",
+      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
+      "relevant_pages": [16],
+      "relevant_topics": ["ReAct", "agents", "tool use"],
+      "expected_answer": "ReAct interleaves reasoning, action/tool calls và observation. Agent lập luận, gọi tool, quan sát kết quả rồi quyết định bước tiếp theo, giúp giảm đoán mò nhưng cần kiểm soát loop, tool misuse và context growth."
+    },
+    {
+      "id": "cross_001",
+      "query": "Tài liệu nào nói rõ nhất về Recall@K và MRR cho retrieval evaluation?",
+      "relevant_docs": [
+        "qdrant_vector_db_ai_v2.pdf",
+        "Complete Roadmap to Become an Agentic AI Engineer.pdf"
+      ],
+      "relevant_pages": [26, 14],
+      "relevant_topics": ["retrieval evaluation", "Recall@k", "MRR"],
+      "expected_answer": "Tài liệu Qdrant giải thích trực tiếp các metric retrieval và có code Recall@k đơn giản; roadmap Agentic AI cũng liệt kê recall@k, precision@k, MRR và nDCG là các metric RAG quan trọng."
+    },
+    {
+      "id": "cross_002",
+      "query": "Tài liệu nào phù hợp nhất nếu muốn học memory cho agent bằng SQLite, embedding và hybrid retrieval?",
+      "relevant_docs": ["MemoryAgent.pdf"],
+      "relevant_pages": [3, 4, 5, 6],
+      "relevant_topics": ["agent memory", "SQLite", "embedding", "hybrid retrieval"],
+      "expected_answer": "MemoryAgent.pdf là tài liệu phù hợp nhất vì trình bày lộ trình memory agent từ short-term memory, SQLite persistent memory, semantic memory bằng embedding đến hybrid memory retrieval."
+    },
+    {
+      "id": "cross_003",
+      "query": "Tài liệu nào mô tả một hệ thống RAG học tập có quiz, flashcards và đánh giá bằng Ragas?",
+      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
+      "relevant_pages": [1, 2, 5, 28],
+      "relevant_topics": ["NotebookLM", "quiz", "flashcards", "Ragas"],
+      "expected_answer": "[Description]-Building-Simple-NotebookLM.pdf mô tả hệ thống học tập dùng RAG trên tài liệu cá nhân, hỗ trợ hỏi đáp, tóm tắt, quiz, flashcards và đánh giá bằng Ragas."
+    },
+    {
+      "id": "cross_004",
+      "query": "Tài liệu nào nên đọc để chuẩn bị phỏng vấn về Agentic AI engineer?",
+      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
+      "relevant_pages": [1, 2, 4, 6, 8, 14, 16, 18],
+      "relevant_topics": ["interview Q&A", "agentic AI engineer", "roadmap"],
+      "expected_answer": "Complete Roadmap to Become an Agentic AI Engineer.pdf là tài liệu phù hợp vì nó biến roadmap Agentic AI 2026 thành bộ câu hỏi phỏng vấn theo chủ đề Python, LLM, framework, memory, tools, RAG, agents và deployment."
+    }
+  ]
+}

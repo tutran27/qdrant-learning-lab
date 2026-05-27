@@ -1,15 +1,15 @@
-# Lab 08 - Agent Memory
+# 🧠 Lab 08 - Agent Memory
 
 Lab này mô phỏng memory layer cho AI agent bằng Qdrant local mode.
 
-## Mục tiêu
+## 🎯 Mục tiêu
 
 - Lưu long-term memory của từng user dưới dạng dense vector.
 - Search memory liên quan theo `user_id` và `is_deleted`.
 - Đưa memory vào prompt như ngữ cảnh nội bộ để assistant trả lời tự nhiên.
 - Extract thông tin đáng nhớ từ message mới của user và lưu lại vào Qdrant.
 
-## Cấu trúc
+## 📁 Cấu trúc
 
 ```text
 lab_08_agent_memory/
@@ -23,7 +23,7 @@ lab_08_agent_memory/
 `-- .env
 ```
 
-## Collection
+## 🗂️ Collection
 
 Collection mặc định:
 
@@ -53,7 +53,7 @@ is_deleted
 
 Lưu ý: khi dùng `QdrantClient(path=...)`, payload index không tối ưu tốc độ như Qdrant server, nhưng vẫn phù hợp cho lab local.
 
-## Pipeline
+## 🔁 Pipeline
 
 ```text
 User query
@@ -67,7 +67,7 @@ User query
 
 Memory được dùng như ngữ cảnh nội bộ. Assistant không nên nói các câu như "tôi nhớ", "trước đây bạn nói", hoặc nhắc Qdrant/vector database.
 
-## Chạy lab
+## 🚀 Chạy lab
 
 Từ repo root:
 
@@ -78,7 +78,7 @@ python -m labs.lab_08_agent_memory.main
 
 `memory_service` tạo collection và payload index. `main` chạy vòng chat tương tác.
 
-## Cấu hình
+## ⚙️ Cấu hình
 
 Lab dùng config chung từ `common.config`, gồm:
 
@@ -100,7 +100,7 @@ VECTOR_SIZE=384
 
 Khi đổi `VECTOR_SIZE`, cần tạo lại collection vì size vector phải khớp với collection.
 
-## Ghi chú thiết kế
+## 📌 Ghi chú thiết kế
 
 - Lab hiện dùng dense search để giữ pipeline đơn giản.
 - `search_memory` có threshold để tránh đưa memory không liên quan vào prompt.
