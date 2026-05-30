@@ -27,7 +27,7 @@ def ingest(client: QdrantClient,
 
     points=[]
     for i, (chunk, embedd, sparse_chunk) in enumerate(zip(chunks, chunks_embedded, sparse_chunks)):
-        page = chunk.metadata.get("page")
+        page = chunk.metadata.get("page_label")
         total_pages = chunk.metadata.get("total_pages")
         doc_type=os.path.splitext(path)[-1]
         

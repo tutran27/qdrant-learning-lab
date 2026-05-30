@@ -23,7 +23,7 @@ def search_colbert(client: QdrantClient, query: str, k: int = 5):
 if __name__=="__main__":
     client=QdrantClient(path=settings.qdrant_path)
     
-    query="Quá trình của mô hình RAG"
+    query="SỨ MỆNH LỊCH SỬ CỦA GIAI CẤP CÔNG NHÂN"
     results=search_colbert(client, query, k=5)
 
     for r in results:

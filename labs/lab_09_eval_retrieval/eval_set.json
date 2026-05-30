@@ -1,365 +1,560 @@
 {
-  "version": "1.0",
-  "description": "Evaluation set for Lab 09 retrieval over PDFs in data/raw/sample_docs. Ground truth is labeled at document/page/topic level because Qdrant point ids are generated with uuid4 during ingest and chunk ids can shift when chunking settings change.",
+  "version": "2.0",
+  "description": "Evaluation set for Lab 09 over the current PDFs in data/raw/sample_docs. Ground truth is labeled at document and page level because Qdrant point ids are generated with uuid4 and chunk ids can change when chunking settings change.",
+  "collection_name": "documents_lab09",
   "source_dir": "data/raw/sample_docs",
+  "payload_contract": {
+    "text_field": "text",
+    "document_field": "file_name",
+    "page_field": "metadata.page",
+    "page_label_field": "page",
+    "vector_names": ["dense", "sparse", "colbert"]
+  },
   "documents": [
     {
-      "file_name": "Complete Roadmap to Become an Agentic AI Engineer.pdf",
-      "short_name": "agentic_ai_roadmap",
-      "language": "en",
+      "id": "cnxh_exam_2021_2022",
+      "file_name": "9h00-ĐHBKCNXHĐỀ-7-kỳ-1-21-22.docx.pdf",
+      "language": "vi",
+      "page_count": 2,
+      "domain": "chủ nghĩa xã hội khoa học",
       "topics": [
-        "agentic AI roadmap",
-        "Python fundamentals",
-        "LLM fundamentals",
-        "agent frameworks",
-        "memory management",
-        "tool integration",
-        "RAG",
-        "multi-agent systems",
-        "production deployment"
+        "câu hỏi đúng sai",
+        "chủ nghĩa xã hội không tưởng",
+        "chủ nghĩa Mác - Lênin",
+        "sứ mệnh lịch sử của giai cấp công nhân"
       ]
     },
     {
-      "file_name": "MemoryAgent.pdf",
-      "short_name": "memory_agent_lab",
+      "id": "cnxh_summary",
+      "file_name": "CNXH-KH-cực-mạnh.docx.pdf",
       "language": "vi",
+      "page_count": 7,
+      "domain": "chủ nghĩa xã hội khoa học",
       "topics": [
-        "short-term memory",
-        "SQLite memory",
-        "semantic memory",
-        "hybrid memory retrieval",
-        "memory writer",
-        "reflection memory",
-        "memory evaluation",
-        "Qwen local LLM"
+        "Liên Xô",
+        "Đông Âu",
+        "giai cấp công nhân Việt Nam",
+        "sứ mệnh lịch sử của giai cấp công nhân"
       ]
     },
     {
-      "file_name": "qdrant_vector_db_ai_v2.pdf",
-      "short_name": "qdrant_vector_db_ai",
+      "id": "ktqldn_questions",
+      "file_name": "CÂU-HỎI-VÀ-BÀI-TẬP-Học-phần-KTQLDN (1).pdf",
       "language": "vi",
+      "page_count": 12,
+      "domain": "kinh tế và quản lý doanh nghiệp",
       "topics": [
-        "Qdrant",
-        "vector search",
-        "collection point payload",
-        "embedding",
-        "filtering",
-        "payload index",
-        "HNSW",
-        "hybrid search",
-        "multivector",
-        "multitenancy",
-        "retrieval evaluation"
+        "doanh nghiệp",
+        "vốn lưu động",
+        "lãi suất",
+        "kênh phân phối",
+        "NPV",
+        "IRR",
+        "đường găng",
+        "bài toán vận tải"
       ]
     },
     {
-      "file_name": "[Description]-Building-Simple-NotebookLM.pdf",
-      "short_name": "simple_notebooklm",
+      "id": "cnxh_textbook",
+      "file_name": "GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf",
       "language": "vi",
+      "page_count": 106,
+      "domain": "chủ nghĩa xã hội khoa học",
       "topics": [
-        "NotebookLM",
-        "RAG learning system",
-        "document QA",
-        "summarization",
-        "quiz generation",
-        "flashcards",
-        "Ragas evaluation",
-        "chunking experiment",
-        "reranking"
+        "sự ra đời của chủ nghĩa xã hội khoa học",
+        "sứ mệnh lịch sử của giai cấp công nhân",
+        "thời kỳ quá độ lên chủ nghĩa xã hội",
+        "dân chủ xã hội chủ nghĩa",
+        "nhà nước xã hội chủ nghĩa",
+        "liên minh giai cấp",
+        "dân tộc",
+        "tôn giáo",
+        "gia đình"
+      ]
+    },
+    {
+      "id": "ussr_eastern_europe_note",
+      "file_name": "Tìm hiểu LX ĐÔNG ÂU.docx.pdf",
+      "language": "vi",
+      "page_count": 1,
+      "domain": "lịch sử xã hội chủ nghĩa",
+      "topics": [
+        "Liên Xô",
+        "Đông Âu",
+        "hệ thống xã hội chủ nghĩa",
+        "sụp đổ Liên Xô"
+      ]
+    },
+    {
+      "id": "tthcm_outline",
+      "file_name": "Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf",
+      "language": "vi",
+      "page_count": 22,
+      "domain": "tư tưởng Hồ Chí Minh",
+      "topics": [
+        "chủ nghĩa xã hội ở Việt Nam",
+        "thời kỳ quá độ",
+        "xây dựng Đảng",
+        "nhà nước của dân do dân vì dân",
+        "đại đoàn kết dân tộc",
+        "đạo đức cách mạng",
+        "cần kiệm liêm chính"
       ]
     }
   ],
   "queries": [
     {
-      "id": "qdrant_001",
-      "query": "Qdrant là gì và nó giải quyết bài toán nào trong hệ thống AI?",
-      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
-      "relevant_pages": [4],
-      "relevant_topics": ["Qdrant", "vector database", "AI applications"],
-      "expected_answer": "Qdrant là vector database/vector search engine dùng để lưu embedding và tìm kiếm các đối tượng gần nghĩa, phục vụ các bài toán như RAG, semantic search, hybrid search, recommendation, multimodal search và agent memory."
+      "id": "cnxh_textbook_001",
+      "query": "Chủ nghĩa xã hội khoa học ra đời từ những điều kiện và tiền đề nào?",
+      "type": "factoid",
+      "difficulty": "medium",
+      "relevant_docs": ["GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf"],
+      "relevant_pages": [1, 2, 3, 4],
+      "relevant_targets": [
+        {
+          "file_name": "GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf",
+          "pages": [1, 2, 3, 4],
+          "topics": ["sự ra đời của chủ nghĩa xã hội khoa học", "tiền đề kinh tế xã hội", "tiền đề tư tưởng lý luận"]
+        }
+      ],
+      "expected_answer": "Chủ nghĩa xã hội khoa học ra đời từ điều kiện kinh tế - xã hội của chủ nghĩa tư bản, sự trưởng thành của phong trào công nhân và các tiền đề tư tưởng, lý luận, khoa học mà Mác và Ăngghen kế thừa, phát triển."
     },
     {
-      "id": "qdrant_002",
-      "query": "Collection, point và payload trong Qdrant khác nhau như thế nào?",
-      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
-      "relevant_pages": [7],
-      "relevant_topics": ["collection", "point", "payload"],
-      "expected_answer": "Collection là không gian tìm kiếm, point là bản ghi gồm id, vector và payload, còn payload là metadata JSON dùng để lưu text, source, page, tenant_id, doc_type, tags hoặc quyền truy cập."
+      "id": "cnxh_textbook_002",
+      "query": "Vì sao giai cấp công nhân cần có chính đảng để hoàn thành sứ mệnh lịch sử?",
+      "type": "reasoning",
+      "difficulty": "medium",
+      "relevant_docs": ["GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf"],
+      "relevant_pages": [5, 20, 25],
+      "relevant_targets": [
+        {
+          "file_name": "GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf",
+          "pages": [5, 20, 25],
+          "topics": ["giai cấp công nhân", "chính đảng", "sứ mệnh lịch sử"]
+        }
+      ],
+      "expected_answer": "Giai cấp công nhân cần chính đảng để có tổ chức chính trị, lý luận soi đường và khả năng lãnh đạo cuộc đấu tranh xóa bỏ áp bức, bóc lột, xây dựng quan hệ sản xuất và xã hội mới."
     },
     {
-      "id": "qdrant_003",
-      "query": "Khi nào nên dùng payload filter và payload index trong Qdrant?",
-      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
-      "relevant_pages": [11, 12],
-      "relevant_topics": ["filtering", "payload index"],
-      "expected_answer": "Payload filter dùng để giới hạn retrieval theo metadata như tenant, source, doc_type, page hoặc quyền truy cập. Payload index nên tạo cho các field hay filter để Qdrant lọc nhanh hơn và query planner tốt hơn."
+      "id": "cnxh_textbook_003",
+      "query": "Nội dung kinh tế trong sứ mệnh lịch sử của giai cấp công nhân là gì?",
+      "type": "factoid",
+      "difficulty": "medium",
+      "relevant_docs": ["GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf"],
+      "relevant_pages": [20, 30],
+      "relevant_targets": [
+        {
+          "file_name": "GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf",
+          "pages": [20, 30],
+          "topics": ["sứ mệnh lịch sử", "nội dung kinh tế", "công nghiệp hóa"]
+        }
+      ],
+      "expected_answer": "Nội dung kinh tế là giải phóng và phát triển lực lượng sản xuất, thúc đẩy công nghiệp hóa, xây dựng cơ sở vật chất - kỹ thuật và quan hệ sản xuất mới của chủ nghĩa xã hội."
     },
     {
-      "id": "qdrant_004",
-      "query": "Hybrid search dense + sparse trong Qdrant hữu ích trong trường hợp nào?",
-      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
-      "relevant_pages": [22, 23],
-      "relevant_topics": ["hybrid search", "dense retrieval", "sparse retrieval", "RRF"],
-      "expected_answer": "Hybrid search hữu ích khi query vừa cần hiểu nghĩa vừa cần khớp chính xác thuật ngữ, mã, tên hàm hoặc keyword. Dense bắt nghĩa, sparse bắt exact match, còn RRF hợp nhất theo thứ hạng thay vì cộng raw score."
+      "id": "cnxh_textbook_004",
+      "query": "Thời kỳ quá độ lên chủ nghĩa xã hội được hiểu như thế nào?",
+      "type": "factoid",
+      "difficulty": "medium",
+      "relevant_docs": ["GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf"],
+      "relevant_pages": [35, 45],
+      "relevant_targets": [
+        {
+          "file_name": "GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf",
+          "pages": [35, 45],
+          "topics": ["thời kỳ quá độ", "bỏ qua chế độ tư bản chủ nghĩa"]
+        }
+      ],
+      "expected_answer": "Thời kỳ quá độ là giai đoạn cải biến cách mạng từ xã hội tư bản chủ nghĩa sang xã hội cộng sản chủ nghĩa, trong đó còn tồn tại nhiều hình thức sở hữu, thành phần kinh tế và quan hệ xã hội đan xen."
     },
     {
-      "id": "qdrant_005",
-      "query": "HNSW và tham số hnsw_ef ảnh hưởng gì đến search trong Qdrant?",
-      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
-      "relevant_pages": [15, 16],
-      "relevant_topics": ["HNSW", "ANN", "search_params", "hnsw_ef"],
-      "expected_answer": "HNSW là cấu trúc chỉ mục approximate nearest neighbor. Tham số hnsw_ef trong lúc search điều chỉnh phạm vi khám phá ứng viên: ef cao thường tăng recall nhưng cũng tăng latency."
+      "id": "cnxh_textbook_005",
+      "query": "Dân chủ xã hội chủ nghĩa có những bản chất cơ bản nào?",
+      "type": "factoid",
+      "difficulty": "medium",
+      "relevant_docs": ["GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf"],
+      "relevant_pages": [50, 55, 60],
+      "relevant_targets": [
+        {
+          "file_name": "GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf",
+          "pages": [50, 55, 60],
+          "topics": ["dân chủ xã hội chủ nghĩa", "bản chất chính trị", "nhà nước xã hội chủ nghĩa"]
+        }
+      ],
+      "expected_answer": "Dân chủ xã hội chủ nghĩa thể hiện quyền làm chủ của nhân dân dưới sự lãnh đạo của đảng của giai cấp công nhân, là cơ sở cho tổ chức và hoạt động của nhà nước xã hội chủ nghĩa."
     },
     {
-      "id": "qdrant_006",
-      "query": "Multitenancy trong Qdrant nên thiết kế như thế nào để tránh rò rỉ dữ liệu?",
-      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
-      "relevant_pages": [23, 24],
-      "relevant_topics": ["multitenancy", "tenant_id", "access control"],
-      "expected_answer": "Không nên tạo một collection cho mỗi user ở quy mô lớn. Nên dùng collection chung với payload tenant_id hoặc access_roles, tạo tenant index và bắt buộc filter ở backend trong mỗi truy vấn."
+      "id": "cnxh_textbook_006",
+      "query": "Nhà nước pháp quyền xã hội chủ nghĩa ở Việt Nam tôn trọng quyền con người như thế nào?",
+      "type": "factoid",
+      "difficulty": "medium",
+      "relevant_docs": ["GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf"],
+      "relevant_pages": [60, 65],
+      "relevant_targets": [
+        {
+          "file_name": "GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf",
+          "pages": [60, 65],
+          "topics": ["nhà nước pháp quyền xã hội chủ nghĩa", "quyền con người", "quyền dân chủ"]
+        }
+      ],
+      "expected_answer": "Nhà nước pháp quyền xã hội chủ nghĩa coi con người là chủ thể, là trung tâm của phát triển, bảo đảm quyền dân chủ rộng rãi, quyền bầu cử, bãi miễn đại biểu và sự nghiêm minh của pháp luật."
     },
     {
-      "id": "qdrant_007",
-      "query": "Các metric quan trọng để đánh giá retrieval trong Qdrant/RAG là gì?",
-      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
-      "relevant_pages": [26],
-      "relevant_topics": ["evaluation", "Recall@k", "MRR", "Precision@k", "latency"],
-      "expected_answer": "Các metric retrieval quan trọng gồm Recall@k, MRR, Precision@k, hit rate và latency P50/P95/P99. Recall@k cho biết top-k có chứa tài liệu đúng hay không, MRR đo tài liệu đúng xuất hiện sớm đến đâu."
+      "id": "cnxh_textbook_007",
+      "query": "Cơ cấu xã hội trong thời kỳ quá độ ở nước xuất phát điểm thấp biến đổi ra sao?",
+      "type": "factoid",
+      "difficulty": "medium",
+      "relevant_docs": ["GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf"],
+      "relevant_pages": [70, 75, 80],
+      "relevant_targets": [
+        {
+          "file_name": "GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf",
+          "pages": [70, 75, 80],
+          "topics": ["cơ cấu xã hội", "liên minh giai cấp", "đội ngũ doanh nhân", "thanh niên"]
+        }
+      ],
+      "expected_answer": "Cơ cấu xã hội chuyển từ nền kinh tế nông nghiệp lạc hậu sang tăng tỉ trọng công nghiệp, dịch vụ, hình thành các lực lượng xã hội mới và cần phát huy liên minh, đồng thuận trong toàn xã hội."
     },
     {
-      "id": "qdrant_008",
-      "query": "Những lỗi phổ biến khi mới dùng Qdrant là gì?",
-      "relevant_docs": ["qdrant_vector_db_ai_v2.pdf"],
-      "relevant_pages": [27],
-      "relevant_topics": ["common mistakes", "vector size", "chunking", "filtering"],
-      "expected_answer": "Các lỗi phổ biến gồm tạo collection sai vector size, lưu cả tài liệu dài thành một vector, không dùng payload filter cho tenant/quyền, và chỉ dùng vector search cho query chứa keyword hoặc mã kỹ thuật."
+      "id": "cnxh_textbook_008",
+      "query": "Vì sao ở Việt Nam các dân tộc cư trú xen kẽ nhau?",
+      "type": "factoid",
+      "difficulty": "easy",
+      "relevant_docs": ["GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf"],
+      "relevant_pages": [85],
+      "relevant_targets": [
+        {
+          "file_name": "GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf",
+          "pages": [85],
+          "topics": ["dân tộc", "cư trú xen kẽ", "Việt Nam"]
+        }
+      ],
+      "expected_answer": "Việt Nam là nơi chuyển cư của nhiều dân tộc ở Đông Nam Á, tạo nên bản đồ cư trú phân tán, xen kẽ, không có lãnh thổ tộc người riêng cho từng dân tộc."
     },
     {
-      "id": "memory_001",
-      "query": "Trong agent, context và memory khác nhau như thế nào?",
-      "relevant_docs": ["MemoryAgent.pdf"],
-      "relevant_pages": [3],
-      "relevant_topics": ["context", "memory", "agent memory"],
-      "expected_answer": "Context là phần text được đưa vào prompt hiện tại và chỉ sống trong một lần gọi LLM. Memory là hệ thống lưu, truy xuất, lọc, tóm tắt và đưa thông tin cũ trở lại prompt khi cần."
+      "id": "cnxh_textbook_009",
+      "query": "Tôn giáo thường xuất hiện và tồn tại trong những điều kiện nhận thức nào?",
+      "type": "factoid",
+      "difficulty": "easy",
+      "relevant_docs": ["GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf"],
+      "relevant_pages": [90, 95],
+      "relevant_targets": [
+        {
+          "file_name": "GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf",
+          "pages": [90, 95],
+          "topics": ["tôn giáo", "nhận thức", "chính sách tôn giáo"]
+        }
+      ],
+      "expected_answer": "Tôn giáo tồn tại khi nhận thức của con người về tự nhiên, xã hội và bản thân còn giới hạn; những điều khoa học chưa giải thích hoặc dân trí chưa tiếp nhận đầy đủ dễ được giải thích qua lăng kính tôn giáo."
     },
     {
-      "id": "memory_002",
-      "query": "Luồng hoạt động tổng quát của memory agent gồm những bước nào?",
-      "relevant_docs": ["MemoryAgent.pdf"],
-      "relevant_pages": [4],
-      "relevant_topics": ["memory agent flow", "retriever", "ranker", "prompt builder"],
-      "expected_answer": "User input đi vào short-term memory và memory retriever; retriever tìm qua keyword search, vector search và recent memory; memory ranker chọn kết quả; prompt builder ghép memory và history để gọi LLM; sau đó memory writer lưu thông tin cần nhớ."
+      "id": "cnxh_textbook_010",
+      "query": "Gia đình Việt Nam hiện đại đang biến đổi về quy mô và quan hệ thế hệ như thế nào?",
+      "type": "factoid",
+      "difficulty": "medium",
+      "relevant_docs": ["GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf"],
+      "relevant_pages": [100, 104, 105, 106],
+      "relevant_targets": [
+        {
+          "file_name": "GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf",
+          "pages": [100, 104, 105, 106],
+          "topics": ["gia đình", "quy mô gia đình", "mâu thuẫn thế hệ"]
+        }
+      ],
+      "expected_answer": "Gia đình hiện đại có xu hướng thu nhỏ, thường chỉ còn hai thế hệ cha mẹ - con cái; đồng thời xuất hiện thách thức về mâu thuẫn thế hệ do khác biệt giá trị truyền thống và hiện đại."
     },
     {
-      "id": "memory_003",
-      "query": "Semantic memory bằng embedding giúp giải quyết vấn đề gì so với keyword search?",
-      "relevant_docs": ["MemoryAgent.pdf"],
-      "relevant_pages": [5],
-      "relevant_topics": ["semantic memory", "embedding", "vector search"],
-      "expected_answer": "Semantic memory giúp tìm lại ký ức theo nghĩa dù user hỏi bằng từ khác. Keyword search có thể bỏ sót nếu không trùng từ khóa, còn embedding tìm được các câu gần nghĩa."
+      "id": "cnxh_summary_001",
+      "query": "Liên Xô khôi phục kinh tế sau Chiến tranh thế giới thứ hai trong bối cảnh nào?",
+      "type": "factoid",
+      "difficulty": "easy",
+      "relevant_docs": ["CNXH-KH-cực-mạnh.docx.pdf"],
+      "relevant_pages": [1],
+      "relevant_targets": [
+        {
+          "file_name": "CNXH-KH-cực-mạnh.docx.pdf",
+          "pages": [1],
+          "topics": ["Liên Xô", "khôi phục kinh tế", "1945-1950"]
+        }
+      ],
+      "expected_answer": "Liên Xô bị tổn thất nặng sau chiến tranh, bị bao vây kinh tế và cô lập chính trị, nên đề ra kế hoạch 5 năm 1946-1950 để khôi phục kinh tế và hàn gắn vết thương chiến tranh."
     },
     {
-      "id": "memory_004",
-      "query": "Hybrid memory kết hợp những thành phần điểm số nào?",
-      "relevant_docs": ["MemoryAgent.pdf"],
-      "relevant_pages": [6],
-      "relevant_topics": ["hybrid memory", "semantic_score", "keyword_bonus", "importance", "recency"],
-      "expected_answer": "Hybrid memory kết hợp semantic score, keyword bonus, importance và recency score. Vector search bắt nghĩa, keyword search bắt tên riêng/mã lỗi/tên file, recency ưu tiên thông tin mới, importance ưu tiên thông tin quan trọng."
+      "id": "cnxh_summary_002",
+      "query": "Giai cấp công nhân Việt Nam hình thành trong điều kiện lịch sử nào?",
+      "type": "factoid",
+      "difficulty": "medium",
+      "relevant_docs": ["CNXH-KH-cực-mạnh.docx.pdf"],
+      "relevant_pages": [4, 5],
+      "relevant_targets": [
+        {
+          "file_name": "CNXH-KH-cực-mạnh.docx.pdf",
+          "pages": [4, 5],
+          "topics": ["giai cấp công nhân Việt Nam", "khai thác thuộc địa", "nguồn gốc nông dân"]
+        }
+      ],
+      "expected_answer": "Giai cấp công nhân Việt Nam xuất hiện gắn với quá trình khai thác thuộc địa của thực dân Pháp, sự du nhập phương thức sản xuất tư bản chủ nghĩa và phần lớn có nguồn gốc xuất thân từ nông dân."
     },
     {
-      "id": "memory_005",
-      "query": "Memory writer nên lưu loại thông tin nào và không nên lưu loại nào?",
-      "relevant_docs": ["MemoryAgent.pdf"],
-      "relevant_pages": [6, 7, 29],
-      "relevant_topics": ["memory writer", "memory policy", "what to store"],
-      "expected_answer": "Memory writer nên lưu preference dài hạn, mục tiêu học tập, thông tin project, quyết định quan trọng, lỗi đã xử lý hoặc cấu hình môi trường. Không nên lưu mọi câu hỏi ngắn, thông tin rác hoặc thông tin nhạy cảm không cần thiết."
+      "id": "cnxh_summary_003",
+      "query": "Sứ mệnh lịch sử của giai cấp công nhân gồm những bước nào?",
+      "type": "factoid",
+      "difficulty": "medium",
+      "relevant_docs": ["CNXH-KH-cực-mạnh.docx.pdf"],
+      "relevant_pages": [6, 7],
+      "relevant_targets": [
+        {
+          "file_name": "CNXH-KH-cực-mạnh.docx.pdf",
+          "pages": [6, 7],
+          "topics": ["sứ mệnh lịch sử", "giành chính quyền", "xây dựng xã hội mới"]
+        }
+      ],
+      "expected_answer": "Sứ mệnh gồm giành chính quyền về tay giai cấp công nhân và nhân dân lao động, sau đó tổ chức xây dựng xã hội mới xã hội chủ nghĩa; hai bước có quan hệ chặt chẽ với nhau."
     },
     {
-      "id": "memory_006",
-      "query": "Reflection memory là gì và dùng để làm gì?",
-      "relevant_docs": ["MemoryAgent.pdf"],
-      "relevant_pages": [7, 28],
-      "relevant_topics": ["reflection memory", "summary memory"],
-      "expected_answer": "Reflection memory là memory cấp cao được rút ra từ nhiều lượt hội thoại, ví dụ người dùng thường học qua project thực tế hoặc thích giải thích chi tiết. Nó giúp cô đọng thông tin thay vì lưu nhiều raw history."
-    },
-    {
-      "id": "memory_007",
-      "query": "Làm thế nào để đánh giá memory có thật sự giúp agent trả lời tốt hơn?",
-      "relevant_docs": ["MemoryAgent.pdf"],
-      "relevant_pages": [7, 28],
-      "relevant_topics": ["memory evaluation", "memory_hit_rate", "keyword recall"],
-      "expected_answer": "Tạo test case gồm setup turns, câu hỏi và expected keywords, rồi so sánh câu trả lời without memory và with memory bằng các chỉ số như memory_hit_rate, expected_keyword_recall và answer_groundedness."
-    },
-    {
-      "id": "memory_008",
-      "query": "Thứ tự nên code một project memory agent là gì?",
-      "relevant_docs": ["MemoryAgent.pdf"],
-      "relevant_pages": [31],
-      "relevant_topics": ["implementation order", "project structure"],
-      "expected_answer": "Nên code theo thứ tự: config.py, llm/qwen_local.py, memory/schema.py, memory/sqlite_memory.py, memory/embedder.py, memory/memory_manager.py, agent/prompt_builder.py, agent/memory_agent.py, main.py và scripts/visualize_memory.py."
-    },
-    {
-      "id": "notebooklm_001",
-      "query": "Project Building a Simple NotebookLM nhằm giải quyết vấn đề gì?",
-      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
+      "id": "cnxh_exam_001",
+      "query": "Chủ nghĩa xã hội không tưởng có phát hiện được lực lượng xã hội tiên phong để chuyển biến từ chủ nghĩa tư bản lên chủ nghĩa cộng sản không?",
+      "type": "factoid",
+      "difficulty": "easy",
+      "relevant_docs": ["9h00-ĐHBKCNXHĐỀ-7-kỳ-1-21-22.docx.pdf"],
       "relevant_pages": [1, 2],
-      "relevant_topics": ["NotebookLM", "RAG", "hallucination"],
-      "expected_answer": "Project mô phỏng hệ thống học tập dựa trên tài liệu cá nhân, dùng RAG để truy xuất đoạn liên quan từ tài liệu đã index rồi đưa vào prompt, giúp câu trả lời có căn cứ và giảm hallucination."
+      "relevant_targets": [
+        {
+          "file_name": "9h00-ĐHBKCNXHĐỀ-7-kỳ-1-21-22.docx.pdf",
+          "pages": [1, 2],
+          "topics": ["chủ nghĩa xã hội không tưởng", "giai cấp công nhân", "đúng sai"]
+        }
+      ],
+      "expected_answer": "Không. Tài liệu cho rằng nhận định này sai vì chủ nghĩa xã hội không tưởng không phát hiện được lực lượng xã hội tiên phong có khả năng thực hiện chuyển biến cách mạng đó."
     },
     {
-      "id": "notebooklm_002",
-      "query": "Input và output chính của hệ thống Simple NotebookLM là gì?",
-      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
+      "id": "ussr_001",
+      "query": "Liên Xô tồn tại trong khoảng thời gian nào và có quy mô ra sao trước khi tan rã?",
+      "type": "factoid",
+      "difficulty": "easy",
+      "relevant_docs": ["Tìm hiểu LX ĐÔNG ÂU.docx.pdf"],
+      "relevant_pages": [1],
+      "relevant_targets": [
+        {
+          "file_name": "Tìm hiểu LX ĐÔNG ÂU.docx.pdf",
+          "pages": [1],
+          "topics": ["Liên Xô", "lãnh thổ", "dân số", "GDP"]
+        }
+      ],
+      "expected_answer": "Liên Xô tồn tại từ 30/12/1922 đến 25/12/1991, từng là quốc gia có diện tích lớn nhất thế giới, dân số năm 1991 hơn 293 triệu người và GDP năm 1990 đứng thứ hai thế giới sau Hoa Kỳ."
+    },
+    {
+      "id": "ktqldn_001",
+      "query": "Các câu hỏi lý thuyết đầu tiên của học phần KTQLDN xoay quanh những chủ đề nào?",
+      "type": "factoid",
+      "difficulty": "easy",
+      "relevant_docs": ["CÂU-HỎI-VÀ-BÀI-TẬP-Học-phần-KTQLDN (1).pdf"],
+      "relevant_pages": [1, 2, 3],
+      "relevant_targets": [
+        {
+          "file_name": "CÂU-HỎI-VÀ-BÀI-TẬP-Học-phần-KTQLDN (1).pdf",
+          "pages": [1, 2, 3],
+          "topics": ["hoạt động kinh doanh", "doanh nghiệp", "vốn lưu động", "kênh phân phối"]
+        }
+      ],
+      "expected_answer": "Các câu hỏi lý thuyết xoay quanh hoạt động kinh doanh, chủ thể kinh doanh, doanh nghiệp, phân loại doanh nghiệp, vốn lưu động, lãi suất, kênh phân phối và xúc tiến thương mại."
+    },
+    {
+      "id": "ktqldn_002",
+      "query": "Bài tập KTQLDN nào yêu cầu tính NPV, thời gian hoàn vốn và IRR của dự án?",
+      "type": "factoid",
+      "difficulty": "medium",
+      "relevant_docs": ["CÂU-HỎI-VÀ-BÀI-TẬP-Học-phần-KTQLDN (1).pdf"],
+      "relevant_pages": [6, 7, 12],
+      "relevant_targets": [
+        {
+          "file_name": "CÂU-HỎI-VÀ-BÀI-TẬP-Học-phần-KTQLDN (1).pdf",
+          "pages": [6, 7, 12],
+          "topics": ["NPV", "PP", "DPP", "IRR", "dự án đầu tư"]
+        }
+      ],
+      "expected_answer": "Các bài tập về dự án đầu tư yêu cầu dùng dòng ngân quỹ, suất lợi nhuận tối thiểu chấp nhận được để tính NPV, thời gian hoàn vốn không chiết khấu hoặc chiết khấu và IRR."
+    },
+    {
+      "id": "ktqldn_003",
+      "query": "Bài toán vận tải trong tài liệu KTQLDN yêu cầu tối ưu mục tiêu gì?",
+      "type": "factoid",
+      "difficulty": "easy",
+      "relevant_docs": ["CÂU-HỎI-VÀ-BÀI-TẬP-Học-phần-KTQLDN (1).pdf"],
+      "relevant_pages": [9, 10],
+      "relevant_targets": [
+        {
+          "file_name": "CÂU-HỎI-VÀ-BÀI-TẬP-Học-phần-KTQLDN (1).pdf",
+          "pages": [9, 10],
+          "topics": ["bài toán vận tải", "min", "max", "chi phí"]
+        }
+      ],
+      "expected_answer": "Tài liệu có các bài toán vận tải với hàm mục tiêu tối thiểu hóa chi phí và phần tiếp theo yêu cầu giải các bài toán vận tải với hàm mục tiêu cực đại."
+    },
+    {
+      "id": "tthcm_001",
+      "query": "Theo đề cương Tư tưởng Hồ Chí Minh, nội dung chính trị của chủ nghĩa xã hội là gì?",
+      "type": "factoid",
+      "difficulty": "easy",
+      "relevant_docs": ["Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf"],
+      "relevant_pages": [1],
+      "relevant_targets": [
+        {
+          "file_name": "Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf",
+          "pages": [1],
+          "topics": ["chủ nghĩa xã hội", "dân chủ", "nhà nước của dân do dân vì dân"]
+        }
+      ],
+      "expected_answer": "Nội dung chính trị là nhân dân làm chủ, tức dân chủ, và xây dựng nhà nước của dân, do dân, vì dân."
+    },
+    {
+      "id": "tthcm_002",
+      "query": "Nhiệm vụ của thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam theo đề cương là gì?",
+      "type": "factoid",
+      "difficulty": "easy",
+      "relevant_docs": ["Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf"],
       "relevant_pages": [2],
-      "relevant_topics": ["input output", "PDF", "QA", "summary", "quiz", "flashcards"],
-      "expected_answer": "Input gồm PDF học tập, câu hỏi/yêu cầu văn bản và các tùy chọn lọc theo tài liệu, trang hoặc metadata. Output gồm câu trả lời có trích dẫn, tóm tắt, quiz, flashcards và kết quả JSON/Markdown."
+      "relevant_targets": [
+        {
+          "file_name": "Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf",
+          "pages": [2],
+          "topics": ["thời kỳ quá độ", "nhiệm vụ", "cơ sở kinh tế kỹ thuật"]
+        }
+      ],
+      "expected_answer": "Nhiệm vụ là xây dựng nền tảng kinh tế - kỹ thuật, văn hóa - xã hội cho chủ nghĩa xã hội và cải tạo xã hội cũ, xây dựng xã hội mới."
     },
     {
-      "id": "notebooklm_003",
-      "query": "Pipeline RAG trong Simple NotebookLM vận hành qua những bước nào?",
-      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
-      "relevant_pages": [4],
-      "relevant_topics": ["RAG pipeline", "retrieval", "prompt", "LLM", "schema"],
-      "expected_answer": "Pipeline gồm truy xuất chunk liên quan từ Qdrant, đóng gói các chunk vào prompt template theo tác vụ, gọi backend LLM như HuggingFace local/Gemini/vLLM, rồi chuẩn hóa kết quả bằng schema kèm citation và chunk đã dùng."
+      "id": "tthcm_003",
+      "query": "Vì sao phải xây dựng, chỉnh đốn Đảng theo đề cương Tư tưởng Hồ Chí Minh?",
+      "type": "reasoning",
+      "difficulty": "medium",
+      "relevant_docs": ["Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf"],
+      "relevant_pages": [3],
+      "relevant_targets": [
+        {
+          "file_name": "Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf",
+          "pages": [3],
+          "topics": ["xây dựng Đảng", "chỉnh đốn Đảng", "thoái hóa biến chất"]
+        }
+      ],
+      "expected_answer": "Cần xây dựng, chỉnh đốn Đảng để đáp ứng nhiệm vụ từng giai đoạn cách mạng, phòng ngừa đảng viên thoái hóa biến chất và kiểm soát mặt trái của quyền lực chính trị."
     },
     {
-      "id": "notebooklm_004",
-      "query": "Simple NotebookLM hỗ trợ những chức năng học tập nào ngoài hỏi đáp?",
-      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
-      "relevant_pages": [5, 20],
-      "relevant_topics": ["summarization", "quiz", "flashcards", "learning features"],
-      "expected_answer": "Ngoài hỏi đáp trên tài liệu, hệ thống hỗ trợ tóm tắt nội dung, tạo câu hỏi trắc nghiệm và tạo flashcards từ nội dung truy xuất. Người dùng có thể dùng qua Streamlit UI, CLI hoặc FastAPI."
+      "id": "tthcm_004",
+      "query": "Hồ Chí Minh quan niệm nhà nước kiểu mới là nhà nước của ai?",
+      "type": "factoid",
+      "difficulty": "easy",
+      "relevant_docs": ["Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf"],
+      "relevant_pages": [15, 16, 17],
+      "relevant_targets": [
+        {
+          "file_name": "Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf",
+          "pages": [15, 16, 17],
+          "topics": ["nhà nước kiểu mới", "nhà nước của dân", "phục vụ nhân dân"]
+        }
+      ],
+      "expected_answer": "Nhà nước kiểu mới là nhà nước của dân, quyền lực thuộc về nhân dân, cơ quan và cán bộ nhà nước phải lấy phục vụ nhân dân làm mục đích."
     },
     {
-      "id": "notebooklm_005",
-      "query": "Các metric Ragas được dùng để đánh giá Simple NotebookLM gồm những gì?",
-      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
-      "relevant_pages": [28, 29],
-      "relevant_topics": ["Ragas", "context recall", "context precision", "faithfulness", "answer relevance"],
-      "expected_answer": "Ragas dùng context recall, context precision, faithfulness và answer relevance. Hai metric đầu đánh giá retrieval, còn faithfulness và answer relevance đánh giá chất lượng generation."
-    },
-    {
-      "id": "notebooklm_006",
-      "query": "Thử nghiệm chunking trong Simple NotebookLM so sánh những phương pháp nào?",
-      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
-      "relevant_pages": [30, 31, 32, 33],
-      "relevant_topics": ["chunking experiment", "recursive chunking", "semantic chunking"],
-      "expected_answer": "Thử nghiệm so sánh Recursive Chunking với các cấu hình 500/50, 800/100, 1000/150, 1500/200 và Semantic Chunking với percentile, standard deviation và interquartile breakpoint."
-    },
-    {
-      "id": "notebooklm_007",
-      "query": "Vì sao cấu hình Recursive Chunker 1000/150 được chọn làm baseline?",
-      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
-      "relevant_pages": [32, 33],
-      "relevant_topics": ["recursive chunking", "1000/150", "context precision", "context recall"],
-      "expected_answer": "Recursive Chunker 1000/150 được chọn vì đạt context precision cao nhất trong nhóm recursive và vẫn giữ context recall 0.92, tạo nền tảng retrieval cân bằng trước khi thêm reranking."
-    },
-    {
-      "id": "notebooklm_008",
-      "query": "Reranking bằng Cross-Encoder cải thiện hệ thống NotebookLM như thế nào?",
-      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
-      "relevant_pages": [34, 35, 36, 37],
-      "relevant_topics": ["reranking", "Cross-Encoder", "context precision", "context recall"],
-      "expected_answer": "Reranking lấy nhiều candidate ban đầu, dùng Cross-Encoder chấm lại mức liên quan giữa query và từng chunk, rồi chọn top chunk tốt nhất. Kết quả làm context precision tăng lên khoảng 0.9247, context recall khoảng 0.94 và answer relevance cải thiện."
-    },
-    {
-      "id": "roadmap_001",
-      "query": "Roadmap học Agentic AI Engineer năm 2026 nên đi theo thứ tự nào?",
-      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
-      "relevant_pages": [1, 20],
-      "relevant_topics": ["agentic AI roadmap", "learning order"],
-      "expected_answer": "Roadmap đi theo hướng foundation-first: Python fundamentals, LLM fundamentals, chọn framework, advanced workflows, memory, tools, RAG, agents/multi-agents, rồi real-world projects như FastAPI, UI, Docker, cloud và evaluation."
-    },
-    {
-      "id": "roadmap_002",
-      "query": "Một Python project cho agentic system nên được cấu trúc như thế nào?",
-      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
-      "relevant_pages": [2],
-      "relevant_topics": ["Python project structure", "agentic system"],
-      "expected_answer": "Nên tách app/API/UI, core domain logic, agents/graphs/routers, tools wrappers, rag chunking/retrieval, eval golden sets và infra Docker/config. Cần typed interfaces, tests và quản lý dependency."
-    },
-    {
-      "id": "roadmap_003",
-      "query": "Những rủi ro chính của LLM apps trong production là gì?",
-      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
+      "id": "tthcm_005",
+      "query": "Nguyên tắc quan trọng nhất trong xây dựng khối đại đoàn kết dân tộc là gì?",
+      "type": "factoid",
+      "difficulty": "easy",
+      "relevant_docs": ["Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf"],
       "relevant_pages": [5],
-      "relevant_topics": ["LLM production risks", "security", "privacy", "cost", "latency"],
-      "expected_answer": "Rủi ro gồm reliability, prompt injection, data leak, privacy/PII, cost và latency spike, evaluation drift. Agent còn có rủi ro vì có thể hành động qua tools, nên cần policy layer, least privilege, audit logs và staged rollout."
+      "relevant_targets": [
+        {
+          "file_name": "Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf",
+          "pages": [5],
+          "topics": ["đại đoàn kết dân tộc", "khoan dung", "tin vào nhân dân"]
+        }
+      ],
+      "expected_answer": "Nguyên tắc quan trọng là phải có tấm lòng khoan dung, độ lượng, tin vào nhân dân, tin vào con người và yêu kính dân."
     },
     {
-      "id": "roadmap_004",
-      "query": "Khi nào nên chọn LangGraph thay vì chỉ dùng agent loop đơn giản?",
-      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
-      "relevant_pages": [6],
-      "relevant_topics": ["LangGraph", "agent framework", "state graph"],
-      "expected_answer": "LangGraph phù hợp khi cần workflow rõ ràng dạng graph/state machine, checkpoint, retries, policy boundaries, long-running workflow và human-in-the-loop. Nó dễ debug và kiểm soát hơn implicit loops."
+      "id": "tthcm_006",
+      "query": "Nguyên tắc quan trọng nhất trong rèn luyện đạo đức mới theo Hồ Chí Minh là gì?",
+      "type": "factoid",
+      "difficulty": "easy",
+      "relevant_docs": ["Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf"],
+      "relevant_pages": [6, 18],
+      "relevant_targets": [
+        {
+          "file_name": "Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf",
+          "pages": [6, 18],
+          "topics": ["đạo đức mới", "nói đi đôi với làm", "nêu gương"]
+        }
+      ],
+      "expected_answer": "Nguyên tắc quan trọng nhất là nói đi đôi với làm, nêu gương về đạo đức; đạo đức là nhân tố quyết định thành bại của mọi việc."
     },
     {
-      "id": "roadmap_005",
-      "query": "Trong Agentic AI, memory management gồm những loại memory nào?",
-      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
-      "relevant_pages": [10, 11],
-      "relevant_topics": ["memory management", "short-term memory", "long-term memory", "checkpointing"],
-      "expected_answer": "Memory management gồm short-term memory trong context/history gần, long-term memory lưu ngoài context bằng database/vector store, summary/reflection memory và checkpointing state để replay hoặc resume workflow."
-    },
-    {
-      "id": "roadmap_006",
-      "query": "Một tool như thế nào được xem là agent-friendly?",
-      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
-      "relevant_pages": [12],
-      "relevant_topics": ["tool integration", "agent-friendly tools"],
-      "expected_answer": "Tool agent-friendly có tên rõ, phạm vi hẹp, input schema typed, output deterministic và structured, timeout/failure rõ ràng, an toàn khi gọi lặp lại và dễ test."
-    },
-    {
-      "id": "roadmap_007",
-      "query": "RAG evaluation nên đo những metric nào theo roadmap Agentic AI?",
-      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
-      "relevant_pages": [14, 15],
-      "relevant_topics": ["RAG evaluation", "recall", "precision", "MRR", "nDCG"],
-      "expected_answer": "RAG evaluation nên đo retrieval metrics như recall@k, precision@k, MRR, nDCG và answer metrics như factuality, citation correctness, task success, cùng latency, cost và failure rates."
-    },
-    {
-      "id": "roadmap_008",
-      "query": "ReAct pattern trong agent là gì?",
-      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
-      "relevant_pages": [16],
-      "relevant_topics": ["ReAct", "agents", "tool use"],
-      "expected_answer": "ReAct interleaves reasoning, action/tool calls và observation. Agent lập luận, gọi tool, quan sát kết quả rồi quyết định bước tiếp theo, giúp giảm đoán mò nhưng cần kiểm soát loop, tool misuse và context growth."
+      "id": "tthcm_007",
+      "query": "Cần, kiệm, liêm, chính trong đạo đức Hồ Chí Minh được giải thích ở đâu?",
+      "type": "factoid",
+      "difficulty": "medium",
+      "relevant_docs": ["Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf"],
+      "relevant_pages": [20, 21],
+      "relevant_targets": [
+        {
+          "file_name": "Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf",
+          "pages": [20, 21],
+          "topics": ["cần", "kiệm", "liêm", "chính", "đạo đức Hồ Chí Minh"]
+        }
+      ],
+      "expected_answer": "Nội dung cần, kiệm, liêm, chính được trình bày ở phần đạo đức, nhấn mạnh chăm chỉ, tiết kiệm, trong sạch, ngay thẳng và đặt việc công lên trên việc tư."
     },
     {
       "id": "cross_001",
-      "query": "Tài liệu nào nói rõ nhất về Recall@K và MRR cho retrieval evaluation?",
-      "relevant_docs": [
-        "qdrant_vector_db_ai_v2.pdf",
-        "Complete Roadmap to Become an Agentic AI Engineer.pdf"
+      "query": "Tài liệu nào phù hợp nhất để học lý thuyết đầy đủ về dân chủ xã hội chủ nghĩa và nhà nước xã hội chủ nghĩa?",
+      "type": "document_selection",
+      "difficulty": "medium",
+      "relevant_docs": ["GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf"],
+      "relevant_pages": [50, 55, 60, 65],
+      "relevant_targets": [
+        {
+          "file_name": "GIÁO TRÌNH CHỦ-NGHĨA-XÃ-HỘI-KHOA-HỌC.pdf",
+          "pages": [50, 55, 60, 65],
+          "topics": ["dân chủ xã hội chủ nghĩa", "nhà nước xã hội chủ nghĩa"]
+        }
       ],
-      "relevant_pages": [26, 14],
-      "relevant_topics": ["retrieval evaluation", "Recall@k", "MRR"],
-      "expected_answer": "Tài liệu Qdrant giải thích trực tiếp các metric retrieval và có code Recall@k đơn giản; roadmap Agentic AI cũng liệt kê recall@k, precision@k, MRR và nDCG là các metric RAG quan trọng."
+      "expected_answer": "Giáo trình Chủ nghĩa xã hội khoa học phù hợp nhất vì có chương riêng về dân chủ xã hội chủ nghĩa và nhà nước xã hội chủ nghĩa."
     },
     {
       "id": "cross_002",
-      "query": "Tài liệu nào phù hợp nhất nếu muốn học memory cho agent bằng SQLite, embedding và hybrid retrieval?",
-      "relevant_docs": ["MemoryAgent.pdf"],
-      "relevant_pages": [3, 4, 5, 6],
-      "relevant_topics": ["agent memory", "SQLite", "embedding", "hybrid retrieval"],
-      "expected_answer": "MemoryAgent.pdf là tài liệu phù hợp nhất vì trình bày lộ trình memory agent từ short-term memory, SQLite persistent memory, semantic memory bằng embedding đến hybrid memory retrieval."
+      "query": "Nếu muốn ôn nhanh câu hỏi thi về Tư tưởng Hồ Chí Minh thì nên tìm tài liệu nào?",
+      "type": "document_selection",
+      "difficulty": "easy",
+      "relevant_docs": ["Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf"],
+      "relevant_pages": [1, 2, 3, 4, 5, 6],
+      "relevant_targets": [
+        {
+          "file_name": "Đề-cương-Cuối-kỳ-Tư-tưởng-Hồ-Chí-Minh-Mã-học-phần_-TTHCM101.pdf",
+          "pages": [1, 2, 3, 4, 5, 6],
+          "topics": ["câu hỏi ngắn", "ôn thi", "Tư tưởng Hồ Chí Minh"]
+        }
+      ],
+      "expected_answer": "Nên tìm đề cương cuối kỳ Tư tưởng Hồ Chí Minh vì tài liệu này có hệ thống câu hỏi ngắn và tự luận phục vụ ôn thi."
     },
     {
       "id": "cross_003",
-      "query": "Tài liệu nào mô tả một hệ thống RAG học tập có quiz, flashcards và đánh giá bằng Ragas?",
-      "relevant_docs": ["[Description]-Building-Simple-NotebookLM.pdf"],
-      "relevant_pages": [1, 2, 5, 28],
-      "relevant_topics": ["NotebookLM", "quiz", "flashcards", "Ragas"],
-      "expected_answer": "[Description]-Building-Simple-NotebookLM.pdf mô tả hệ thống học tập dùng RAG trên tài liệu cá nhân, hỗ trợ hỏi đáp, tóm tắt, quiz, flashcards và đánh giá bằng Ragas."
-    },
-    {
-      "id": "cross_004",
-      "query": "Tài liệu nào nên đọc để chuẩn bị phỏng vấn về Agentic AI engineer?",
-      "relevant_docs": ["Complete Roadmap to Become an Agentic AI Engineer.pdf"],
-      "relevant_pages": [1, 2, 4, 6, 8, 14, 16, 18],
-      "relevant_topics": ["interview Q&A", "agentic AI engineer", "roadmap"],
-      "expected_answer": "Complete Roadmap to Become an Agentic AI Engineer.pdf là tài liệu phù hợp vì nó biến roadmap Agentic AI 2026 thành bộ câu hỏi phỏng vấn theo chủ đề Python, LLM, framework, memory, tools, RAG, agents và deployment."
+      "query": "Tài liệu nào nói về cả Liên Xô và Đông Âu trong bối cảnh chủ nghĩa xã hội?",
+      "type": "document_selection",
+      "difficulty": "medium",
+      "relevant_docs": ["CNXH-KH-cực-mạnh.docx.pdf", "Tìm hiểu LX ĐÔNG ÂU.docx.pdf"],
+      "relevant_pages": [1, 2, 3],
+      "relevant_targets": [
+        {
+          "file_name": "CNXH-KH-cực-mạnh.docx.pdf",
+          "pages": [1, 2, 3],
+          "topics": ["Liên Xô", "Đông Âu", "1945-1970"]
+        },
+        {
+          "file_name": "Tìm hiểu LX ĐÔNG ÂU.docx.pdf",
+          "pages": [1],
+          "topics": ["Liên Xô", "Đông Âu"]
+        }
+      ],
+      "expected_answer": "CNXH-KH-cực-mạnh trình bày Liên Xô và Đông Âu sau 1945; tài liệu Tìm hiểu LX Đông Âu cũng tóm tắt về Liên Xô, quy mô, vai trò và sự tan rã."
     }
   ]
 }

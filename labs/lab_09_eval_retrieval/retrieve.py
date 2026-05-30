@@ -4,9 +4,9 @@ from qdrant_client import QdrantClient, models
 
 from common.config import settings
 from common.embedding import embed_dense, load_dense_model, embed_sparse, load_sparse_model, load_colbert_model, embed_colbert
-from labs.lab_04_hybrid_dense_sparse.constants import COLLECTION_NAME, DENSE_VECTOR_NAME, SPARSE_VECTOR_NAME
+from labs.lab_04_hybrid_dense_sparse.constants import DENSE_VECTOR_NAME, SPARSE_VECTOR_NAME
 
-
+COLLECTION_NAME = f"{settings.dense_collection_name}_lab09"
 def dense_retrieve(
     client: QdrantClient,
     dense_model,
@@ -31,9 +31,9 @@ def hybrid_retrieve(
     dense_model,
     sparse_model,
     query: str,
-    top_k: int = 10,
-    top_n: int = 3,
     collection_name: str = COLLECTION_NAME,
+    top_k: int = 10,
+    top_n: int = 5,
 ):
     dense_vectors = embed_dense(dense_model, [query])
     sparse_vectors = embed_sparse(sparse_model, [query])
@@ -59,12 +59,13 @@ def hybrid_retrieve(
         ),
         limit=top_n,
         with_payload=True,
-        with_vectors=False,
+        with_vectors=True,
     )
     return result.points
     
 if __name__ == "__main__":
     client = QdrantClient(path=settings.qdrant_path)
+    COLLECTION_NAME = f"{settings.dense_collection_name}_lab09"
     try:
         print(f"Loading dense model: {settings.embedding_model}", flush=True)
         dense_model = load_dense_model()
@@ -73,7 +74,7 @@ if __name__ == "__main__":
         sparse_model = load_sparse_model()
 
         print("Retrieving...", flush=True)
-        query = "Hạn chế của RAG truyền thống là gì"
+        query = " Bản chất kinh tế của dân chủ xã hội chủ nghĩa thể hiện ở đâu "
         print(f"Query: {query}")
         dense_search_result = dense_retrieve(client, dense_model, query)
         hybrid_search_result = hybrid_retrieve(client, dense_model, sparse_model, query)

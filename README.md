@@ -40,7 +40,7 @@ qdrant_storage/                       # Dữ liệu Qdrant local, không commit
 | Lab 06 | ColBERT Multivector | ✅ Đã có code |
 | Lab 07 | Multitenancy Permission | ✅ Đã có code |
 | Lab 08 | Agent Memory | ✅ Đã có code |
-| Lab 09 | Eval Retrieval | ⏳ Placeholder |
+| Lab 09 | Eval Retrieval | ✅ Đã có code |
 
 ## ⚙️ Cài đặt
 
@@ -129,6 +129,19 @@ python -m labs.lab_08_agent_memory.memory_service
 python -m labs.lab_08_agent_memory.main
 ```
 
+### 🔹 Lab 09 - Evaluation Retrieval
+
+Lab 09 dùng collection `documents_lab09` và `eval_set.json` để đánh giá retrieval, MRR, rerank và latency.
+
+```bash
+python -m labs.lab_09_eval_retrieval.ensure_collection
+python -m labs.lab_09_eval_retrieval.ingest_multi_vector
+python -m labs.lab_09_eval_retrieval.retrieve
+python -m labs.lab_09_eval_retrieval.recall_at_k
+python -m labs.lab_09_eval_retrieval.mrr
+python -m labs.lab_09_eval_retrieval.latency_test
+```
+
 ## 🗂️ Collection đang dùng
 
 | Lab | Collection |
@@ -140,6 +153,7 @@ python -m labs.lab_08_agent_memory.main
 | Lab 06 | `colbert_documents` |
 | Lab 07 | `documents_law_tenant` |
 | Lab 08 | `agents_memory` |
+| Lab 09 | `documents_lab09` |
 
 ## 🔐 Ghi chú về Lab 07
 
@@ -163,4 +177,5 @@ Trong thiết kế thực tế, không nên ingest lặp cùng một tài liệu
 - Lab 06 dùng ColBERT/FastEmbed, có thể cần xóa cache nếu gặp lỗi thiếu file ONNX.
 - Lab 07 dùng tenant index `is_tenant=True` cho field `tenant_id`.
 - Lab 08 dùng dense search cho agent memory; nếu đổi embedding model thì `VECTOR_SIZE` phải khớp với collection.
+- Lab 09 dùng collection multi-vector riêng `documents_lab09`; nếu chạy rerank, cần lấy candidate rộng hơn kết quả cuối cùng, ví dụ retrieve `top_k=40`, `top_n=20`, rồi rerank còn 5.
 - `qdrant_storage/`, cache Python và file môi trường đã được ignore trong `.gitignore`.
